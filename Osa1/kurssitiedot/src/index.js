@@ -9,51 +9,58 @@ const Header = (p) => {
 }
 
 const Total = (p) => {
-    console.log('Total exercise ', p)
+    console.log('Total exercise ', p.oliot)
+    let summa = 0
+    
+    p.oliot.forEach(v => {
+        summa += v.exercises
+    })
     return (
-        <p>Number of exercises {p.total}</p>
+        <p>Number of exercises {summa}</p>
     )
 }
 
 const Content = (p) => {
-    console.log('Content ', p)
+    console.log('Content ', p.oliot)
     return (
         <div>
-            <Part pa={p.p1.name} ex={p.p1.exe} />
-            <Part pa={p.p2.name} ex={p.p2.exe} />
-            <Part pa={p.p3.name} ex={p.p3.exe} />
+            <Part olio={p.oliot[0]}/>
+            <Part olio={p.oliot[1]}/>
+            <Part olio={p.oliot[2]}/>
         </div>
     )
 }
 
 const Part = (p) => {
-    console.log('Part ', p)
+    console.log('Part ', p.olio)
     return (
         <p>
-            {p.pa} {p.ex}
+            {p.olio.name} {p.olio.exercises}
         </p>
     )
 }
 const App = () => {
     const course = 'Half Stack application development'
-    const part1 = {
-        name: 'Fundamentals of React',
-        exe: 10
-    }
-    const part2 = {
-        name: 'Using props to pass data',
-        exe: 7
-    }
-    const part3 = {
-        name: 'State of a component',
-        exe: 14
-    }
+    const parts = [
+        {
+            name: 'Fundamentals of React',
+            exercises: 10
+        },
+        {
+            name: 'Using props to pass data',
+            exercises: 7
+        },
+        {
+            name: 'State of a component',
+            exercises: 14
+        }
+    ]
 
     return (
         <div>
             <Header course={course} />
-            <Content p1={part1} p2={part2} p3={part3}/>
-            <Total total={part1.exe + part2.exe + part3.exe} />
+            <Content oliot={parts} />
+            <Total oliot={parts} />
         </div>
     )
 }
