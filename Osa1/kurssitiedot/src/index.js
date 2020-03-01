@@ -2,18 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Header = (p) => {
+    console.log('Header ' ,p)
     return (
         <h1>{p.course}</h1>
     )
 }
 
 const Total = (p) => {
+    console.log('Total exercise ',p)
     return (
         <p>Number of exercises {p.total}</p>
     )
 }
 
 const Content = (p) => {
+    console.log('Content ', p)
     return (
         <div>
             <Part pa={p.p1} ex={p.e1} />
@@ -24,6 +27,7 @@ const Content = (p) => {
 }
 
 const Part = (p) => {
+    console.log('Part ',p)
     return (
         <p>
             {p.pa} {p.ex}
