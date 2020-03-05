@@ -14,21 +14,30 @@ const Display = ({ count, name }) => {
         <p>{name} {count}</p>)
 }
 
-const Statistics = ({good, neutral, bad}) => {
+const Statistics = ({ good, neutral, bad }) => {
     const all = good + bad + neutral
     const sum = good - bad
     const average = sum / all
-    const positive = good / all
+    const positive = 100* good / all
+
+    if (all === 0) {
+        return (
+            <div>
+                <h1>statistics</h1>
+                <p>No feedback given</p>
+            </div>
+        )
+    }
 
     return (
         <div>
             <h1>statistics</h1>
-            <p>good {good}</p>
-            <p>neutral {neutral}</p>
-            <p>bad {bad}</p>
-            <p>all {all}</p>
-            <p>average {average}</p>
-            <p>positive {positive} %</p>
+            <p>good {good}<br/>
+            neutral {neutral}<br/>
+            bad {bad}<br/>
+            all {all}<br/>
+            average {average}<br/>
+            positive {positive} %</p>
         </div>
     )
 }
