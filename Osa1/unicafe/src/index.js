@@ -14,6 +14,14 @@ const Display = ({ count, name }) => {
         <p>{name} {count}</p>)
 }
 
+const StatisticLine = (props) => {
+    return(
+        <div>
+
+        </div>
+    )
+}
+
 const Statistics = ({ good, neutral, bad }) => {
     const all = good + bad + neutral
     const sum = good - bad
@@ -24,7 +32,7 @@ const Statistics = ({ good, neutral, bad }) => {
         return (
             <div>
                 <h1>statistics</h1>
-                <p>No feedback given</p>
+                No feedback given
             </div>
         )
     }
@@ -32,12 +40,12 @@ const Statistics = ({ good, neutral, bad }) => {
     return (
         <div>
             <h1>statistics</h1>
-            <p>good {good}<br/>
+            good {good}<br/>
             neutral {neutral}<br/>
             bad {bad}<br/>
             all {all}<br/>
             average {average}<br/>
-            positive {positive} %</p>
+            positive {positive} %
         </div>
     )
 }
