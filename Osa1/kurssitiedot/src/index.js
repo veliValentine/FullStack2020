@@ -7,7 +7,7 @@ const Header = (props) => {
         <h1>{props.course.name}</h1>
     )
 }
- 
+
 const Total = (props) => {
     console.log('Total exercise ', props.course)
     let summa = 0
