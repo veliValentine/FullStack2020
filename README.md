@@ -4,11 +4,7 @@
     Tekemättä
 
 <h2>osa1</h2>
-    Tehty<br/> 
-        1.1-1.10
-        <br/>
-    Tekemättä<br/>
-        1.11-1.14
+    Tekemättä 1.11-1.14
 <h2>osa2</h2>
 <h2>osa3</h2>
 <h2>osa4</h2>
