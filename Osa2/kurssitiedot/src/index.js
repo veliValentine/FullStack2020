@@ -41,10 +41,10 @@ const Content = (props) => {
   const parts = props.parts
   console.log({ parts });
 
-  let totalExercises = 0;
-  parts.forEach(part => {
-    totalExercises += part.exercises
-  });
+  const totalExercises = parts.reduce((summa, part) => {
+    return summa + part.exercises
+  }, 0)
+
   console.log({ totalExercises });
 
 
@@ -53,8 +53,23 @@ const Content = (props) => {
       {parts.map(part =>
         <Part key={part.id} part={part} />
       )}
-      <b>total of exercises {totalExercises} </b>
+      <TotalExercises parts={parts} />
     </div>
+  )
+}
+
+const TotalExercises = (props) => {
+  console.log('TotalExercises', { props });
+
+  const parts = props.parts
+  console.log({ parts });
+
+  const totalExercises = parts.reduce((summa, part) => {
+    return summa += part.exercises
+  }, 0)
+
+  return (
+    <b>total of exercises {totalExercises} </b>
   )
 }
 
