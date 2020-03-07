@@ -2,13 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Course = (props) => {
-  console.log('Course', {props});
-  
+  console.log('Course', { props });
+
   const course = props.course
-  console.log({course});
+  console.log({ course });
 
   const name = course.name
-  console.log({name});
+  console.log({ name });
 
   const id = course.id
   console.log({ id });
@@ -25,36 +25,44 @@ const Course = (props) => {
 }
 
 const Header = (props) => {
-  console.log('Header',{props});
-  
+  console.log('Header', { props });
+
   const name = props.name
-  console.log({name});
-  
+  console.log({ name });
+
   return (
     <h1>{name}</h1>
   )
 }
 
 const Content = (props) => {
-  console.log('Content', {props});
-  
+  console.log('Content', { props });
+
   const parts = props.parts
-  console.log({parts});
+  console.log({ parts });
+
+  let totalExercises = 0;
+  parts.forEach(part => {
+    totalExercises += part.exercises
+  });
+  console.log({ totalExercises });
+
 
   return (
     <div>
       {parts.map(part =>
         <Part key={part.id} part={part} />
       )}
+      <b>total of exercises {totalExercises} </b>
     </div>
   )
 }
 
 const Part = (props) => {
-  console.log('Part',{props})
-  
+  console.log('Part', { props })
+
   const part = props.part
-  console.log({part});
+  console.log({ part });
 
   return (
     <p>{part.name} {part.exercises}</p>
@@ -80,12 +88,17 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
 
-  console.log('const Course', {course});
-  
+  console.log('const Course', { course });
+
   return (
     <div>
       <Course course={course} />
