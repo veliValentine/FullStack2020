@@ -2,21 +2,15 @@ import React from 'react'
 
 const Title = ({ title }) => <h2>{title}</h2>
 
-const Person = (props) => {
-    console.log({props});
-
-    const person = props.person
-    console.log(person);
-
-    const filter = props.filter
+const Person = ({person, filter}) => {
 
     const name = person.name
     console.log('Person name', {name});
 
-    if (person.name.includes(filter)) {
+    if (name.toLowerCase().match(filter.toLowerCase())) {
         return (
             <p>
-                {person.name} {person.number}
+                {name} {person.number}
             </p>
         )
     }
@@ -24,14 +18,8 @@ const Person = (props) => {
     return(<></>)
 }
 
-const Numbers = (props) => {
-    console.log('Numbers', { props });
-
-    const persons = props.persons
-    console.log({ persons });
-
-    const filter = props.filter
-    console.log({ filter });
+const Numbers = ({persons, filter}) => {
+    console.log('Numbers', { persons }, {filter});
 
     return (
         <div>
