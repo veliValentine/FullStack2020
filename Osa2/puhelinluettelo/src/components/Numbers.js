@@ -8,9 +8,10 @@ const Person = (props) => {
     const { person } = props
     console.log(person);
 
+
     return (
         <p>
-            {person.name}
+            {person.name} {person.number}
         </p>
     )
 }
