@@ -25,7 +25,7 @@ const Numbers = ({persons, filter}) => {
         <div>
             <Title title={'Numbers'} />
             {persons.map(person =>
-                <Person key={person.name} person={person} filter={filter} />
+                <Person key={person.id} person={person} filter={filter} />
             )}
         </div>
     )

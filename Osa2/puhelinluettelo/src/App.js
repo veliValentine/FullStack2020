@@ -61,7 +61,8 @@ const App = () => {
 
     const personObj = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length + 1
     }
     console.log({ personObj });
 
