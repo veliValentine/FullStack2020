@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Numbers from './components/Numbers'
 
 const Title = ({ title }) => <h2>{title}</h2>
@@ -34,13 +35,7 @@ const Filter = ({ handleFilter }) => {
 }
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
-  
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
@@ -48,8 +43,18 @@ const App = () => {
   console.log({ persons });
   console.log({ newName });
   console.log({ newNumber });
-
-
+  
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
+  console.log('render', persons.length, 'persons');
+  
   const addPerson = (event) => {
     event.preventDefault()
     console.log('click', event.target)
@@ -69,12 +74,10 @@ const App = () => {
     }
   }
 
-
   const handleFilter = (event) => {
     setFilter(event.target.value)
     console.log({ filter });
   }
-
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -83,7 +86,6 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
-
 
   return (
     <div>
@@ -97,9 +99,9 @@ const App = () => {
         newNumber={newNumber}
         setNewName={setNewName}
         setNewNumber={setNewNumber}
-        addPerson={addPerson} 
+        addPerson={addPerson}
         handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}/>
+        handleNumberChange={handleNumberChange} />
 
       <Numbers persons={persons} filter={filter} />
     </div>
