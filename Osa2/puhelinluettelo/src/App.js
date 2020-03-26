@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Numbers from './components/Numbers'
+import personService from './services/persons'
 
 const Title = ({ title }) => <h2>{title}</h2>
 
@@ -46,13 +46,13 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
+
   console.log('render', persons.length, 'persons');
 
   const addPerson = (event) => {
@@ -69,16 +69,14 @@ const App = () => {
     if (!persons.every((person) => person.name !== newName)) {
       alert(`${newName} is already added to phonebook`)
     } else {
-      setPersons(persons.concat(personObj))
+      personService
+        .create(personObj)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
 
-      axios
-        .post('http://localhost:3001/persons', personObj)
-        .then(response => {
-          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
         })
-
-      setNewName('')
-      setNewNumber('')
     }
   }
 

@@ -3,9 +3,7 @@ import React from 'react'
 const Title = ({ title }) => <h2>{title}</h2>
 
 const Person = ({person, filter}) => {
-
     const name = person.name
-    console.log('Person name', {name});
 
     if (name.toLowerCase().match(filter.toLowerCase())) {
         return (
@@ -19,8 +17,6 @@ const Person = ({person, filter}) => {
 }
 
 const Numbers = ({persons, filter}) => {
-    console.log('Numbers', { persons }, {filter});
-
     return (
         <div>
             <Title title={'Numbers'} />
