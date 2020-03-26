@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Numbers from './components/Numbers'
 import personService from './services/persons'
-
-const Title = ({ title }) => <h2>{title}</h2>
+import Person from './components/Person'
+import Title from './components/Title'
 
 const PersonForm = (props) => {
   console.log({ props });
@@ -62,7 +61,7 @@ const App = () => {
     const personObj = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1
+      id: persons[persons.length - 1].id + 1
     }
     console.log({ personObj });
 
@@ -77,6 +76,21 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+    }
+  }
+
+  const deletePerson = (person) => {
+    if (window.confirm(`Delete ${person.name} ?`)) {
+      personService
+        .deletePerson(person.id)
+        .then(
+          setPersons(persons.filter(p => p.id !== person.id))
+        )
+        .catch(error => {
+          alert(`the person is already deleted from server`)
+          setPersons(persons.filter(p => p.id !== person.id))
+        })
+
     }
   }
 
@@ -109,7 +123,17 @@ const App = () => {
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange} />
 
-      <Numbers persons={persons} filter={filter} />
+      <Title title={'Numbers'} />
+
+      {persons.map(person =>
+        <Person
+          key={person.id}
+          person={person}
+          filter={filter}
+          deletePerson={() => deletePerson(person)}
+        />
+
+      )}
     </div>
   )
 }
