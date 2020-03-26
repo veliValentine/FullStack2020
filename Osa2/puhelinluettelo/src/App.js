@@ -43,7 +43,7 @@ const App = () => {
   console.log({ persons });
   console.log({ newName });
   console.log({ newNumber });
-  
+
   useEffect(() => {
     console.log('effect')
     axios
@@ -54,7 +54,7 @@ const App = () => {
       })
   }, [])
   console.log('render', persons.length, 'persons');
-  
+
   const addPerson = (event) => {
     event.preventDefault()
     console.log('click', event.target)
@@ -70,6 +70,13 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
     } else {
       setPersons(persons.concat(personObj))
+
+      axios
+        .post('http://localhost:3001/persons', personObj)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+        })
+
       setNewName('')
       setNewNumber('')
     }
