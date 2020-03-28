@@ -7,7 +7,7 @@
     Tehty 1.1-1.11
 <h2>osa2</h2>
     Tehty 2.1-2.11
-    Tehty 2.15-2.19
+    Tehty 2.15-2.20
 <h2>osa3</h2>
 <h2>osa4</h2>
 <h2>osa5</h2>

@@ -40,6 +40,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [notification, setNotification] = useState(null)
+  const [error, setError] = useState(false)
 
   console.log({ persons });
   console.log({ newName });
@@ -52,6 +53,14 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       })
+      .catch(error => {
+        setNotification('Database not found')
+        setError(true)
+        setTimeout(() => {
+          setNotification(null)
+          setError(false)
+        }, 10000)
+      })
   }, [])
 
   console.log('render', persons.length, 'persons');
@@ -60,11 +69,13 @@ const App = () => {
     event.preventDefault()
     console.log('click', event.target)
 
+
     const personObj = {
       name: newName,
       number: newNumber,
-      id: persons[persons.length - 1].id + 1
+      id: persons.length > 0 ? persons[persons.length - 1].id + 1 : persons.length + 1
     }
+
     console.log({ personObj });
 
     const nameIsNotInDb = persons.every((person) => person.name !== newName)
@@ -84,7 +95,17 @@ const App = () => {
             setTimeout(() => {
               setNotification(null)
             }, 3000)
-  
+          })
+          .catch(error => {
+            setNotification(
+              `Information of ${personObj.name} has already been removed from server`
+            )
+            setError(true)
+            setTimeout(() => {
+              setNotification(null)
+              setError(false)
+            }, 10000)
+            setPersons(persons.filter(p => p.id !== id))
           })
       }
 
@@ -99,7 +120,14 @@ const App = () => {
           setTimeout(() => {
             setNotification(null)
           }, 3000)
-
+        })
+        .catch(error => {
+          setNotification(`Failed to create person ${personObj.name}`)
+          setError(true)
+          setTimeout(() => {
+            setNotification(null)
+            setError(false)
+          }, 10000)
         })
     }
   }
@@ -117,7 +145,12 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          alert(`the person is already deleted from server`)
+          setNotification(`Information of ${person.name} has already been removed from server`)
+          setError(true)
+          setTimeout(() => {
+            setNotification(null)
+            setError(false)
+          }, 10000)
           setPersons(persons.filter(p => p.id !== person.id))
         })
     }
@@ -140,7 +173,7 @@ const App = () => {
     <div>
       <Title title={'Phonebook'} />
 
-      <Notification message={notification} />
+      <Notification message={notification} error={error} />
 
       <Filter filter={filter} setFilter={setFilter} handleFilter={handleFilter} />
 
