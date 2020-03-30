@@ -1,0 +1,15 @@
+//GET PERSONS
+GET http://localhost:3001/api/persons
+
+###
+
+//GET PERSON
+GET http://localhost:3001/api/persons/1
+
+###
+
+//DELETE PERSON
+DELETE http://localhost:3001/api/persons/1
+
+###
+
