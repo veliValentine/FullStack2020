@@ -31,16 +31,33 @@ app.get('/', (request, response) => {
 })
 
 app.get("/info", (request, response) => {
-    const people = `<p>Phonebook has info for ${persons.length} people</p>`
-    const date = `<p>${new Date()}</p>`
-    const s = people + date
-    response.send(
-        s
-    )
+    const people = persons.length
+    const date = new Date()
+    const s = `<p>Phonebook has info for ${people} people</p><p>${date}</p>`
+    console.log(`/info`)
+    console.log(`   people: ${people}`)
+    console.log(`   date: ${date}`)
+
+    response.send(s)
 })
 
 app.get('/api/persons', (request, response) => {
+    console.log(`api/persons`)
+    
     response.json(persons)
+})
+
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)
+    console.log('api/persons/:id')
+    if (person) {
+        console.log(`   Henkilö löytyi id:${person.id}`)
+        response.json(person)
+    } else {
+        console.log(`   Henkilöä ei löydy id:${id}`)
+        response.status(404).end()
+    }
 })
 
 const PORT = 3001
