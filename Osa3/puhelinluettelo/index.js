@@ -26,10 +26,12 @@ let persons = [
     }
 ]
 
+//GET /
 app.get('/', (request, response) => {
     response.send('<h1>Tervetuloa</h1>')
 })
 
+//GET /info
 app.get("/info", (request, response) => {
     const people = persons.length
     const date = new Date()
@@ -41,16 +43,18 @@ app.get("/info", (request, response) => {
     response.send(s)
 })
 
+//GET PERSONS
 app.get('/api/persons', (request, response) => {
-    console.log(`api/persons`)
+    console.log(`GET PERSONS`)
     
     response.json(persons)
 })
 
+//GET PERSON
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    console.log('api/persons/:id')
+    console.log('GET PERSON')
     if (person) {
         console.log(`   Henkilö löytyi id:${person.id}`)
         response.json(person)
@@ -58,6 +62,16 @@ app.get('/api/persons/:id', (request, response) => {
         console.log(`   Henkilöä ei löydy id:${id}`)
         response.status(404).end()
     }
+})
+
+//DELETE PERSON
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+    console.log('DELETE PERSON')
+    console.log(`   id: ${id}`)
+
+    response.status(204).end()
 })
 
 const PORT = 3001
