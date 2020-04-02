@@ -46,7 +46,7 @@ app.get("/info", (request, response) => {
 //GET PERSONS
 app.get('/api/persons', (request, response) => {
     console.log(`GET PERSONS`)
-    
+
     response.json(persons)
 })
 
@@ -72,6 +72,39 @@ app.delete('/api/persons/:id', (request, response) => {
     console.log(`   id: ${id}`)
 
     response.status(204).end()
+})
+
+const generateID = () => {
+    return Math.random() * 100000000000000000
+}
+
+//POST PERSON
+app.post('/api/persons', (request, response) => {
+    console.log('POST PERSON')
+    const body = request.body
+
+    if (!body.name || !body.number) {
+        console.log('   ERROR POST PERSON')
+        return response.status(400).json({
+            error: 'name or number missing'
+        })
+    }
+
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: generateID(),
+    }
+
+    persons = persons.concat(person)
+
+    console.log(`   POSTED PERSON`)
+    console.log(`       NAME:${person.name}`)
+    console.log(`       NUMBER:${person.number}`)
+    console.log(`       ID:${person.id}`)
+
+
+    response.json(person)
 })
 
 const PORT = 3001
