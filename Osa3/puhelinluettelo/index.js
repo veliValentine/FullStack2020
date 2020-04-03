@@ -75,7 +75,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 const generateID = () => {
-    return Math.random() * 100000000000000000
+    return Math.random() * 10000000000000000000
 }
 
 //POST PERSON
@@ -85,8 +85,9 @@ app.post('/api/persons', (request, response) => {
 
     if (!body.name || !body.number) {
         console.log('   ERROR POST PERSON')
+        console.log('       MISSING NAME OR NUMBER')
         return response.status(400).json({
-            error: 'name or number missing'
+            error: 'Missing name or number'
         })
     }
 
@@ -95,14 +96,29 @@ app.post('/api/persons', (request, response) => {
         number: body.number,
         id: generateID(),
     }
+    const name = person.name
+    let nameInTheBook = false
+
+    persons.map(p => {
+        if (p.name.toLowerCase() === name.toLowerCase()) {
+            nameInTheBook = true
+        }
+    })
+
+    if(nameInTheBook) {
+        console.log('   ERROR POST PERSON')
+        console.log('       NAME ALREADY IN THE PHONEBOOK')
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
 
     persons = persons.concat(person)
 
-    console.log(`   POSTED PERSON`)
+    console.log(`   POSTED PERSON:`)
     console.log(`       NAME:${person.name}`)
     console.log(`       NUMBER:${person.number}`)
     console.log(`       ID:${person.id}`)
-
 
     response.json(person)
 })
