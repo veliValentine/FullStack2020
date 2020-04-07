@@ -1,7 +1,11 @@
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express()
 
+
 app.use(express.json())
+app.use(morgan('tiny'))
 
 let persons = [
     {
@@ -36,17 +40,12 @@ app.get("/info", (request, response) => {
     const people = persons.length
     const date = new Date()
     const s = `<p>Phonebook has info for ${people} people</p><p>${date}</p>`
-    console.log(`/info`)
-    console.log(`   people: ${people}`)
-    console.log(`   date: ${date}`)
-
+    
     response.send(s)
 })
 
 //GET PERSONS
 app.get('/api/persons', (request, response) => {
-    console.log(`GET PERSONS`)
-
     response.json(persons)
 })
 
@@ -54,12 +53,10 @@ app.get('/api/persons', (request, response) => {
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    console.log('GET PERSON')
+    
     if (person) {
-        console.log(`   Henkilö löytyi id:${person.id}`)
         response.json(person)
     } else {
-        console.log(`   Henkilöä ei löydy id:${id}`)
         response.status(404).end()
     }
 })
@@ -68,8 +65,6 @@ app.get('/api/persons/:id', (request, response) => {
 app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     persons = persons.filter(person => person.id !== id)
-    console.log('DELETE PERSON')
-    console.log(`   id: ${id}`)
 
     response.status(204).end()
 })
@@ -80,12 +75,9 @@ const generateID = () => {
 
 //POST PERSON
 app.post('/api/persons', (request, response) => {
-    console.log('POST PERSON')
     const body = request.body
 
     if (!body.name || !body.number) {
-        console.log('   ERROR POST PERSON')
-        console.log('       MISSING NAME OR NUMBER')
         return response.status(400).json({
             error: 'Missing name or number'
         })
@@ -106,19 +98,12 @@ app.post('/api/persons', (request, response) => {
     })
 
     if(nameInTheBook) {
-        console.log('   ERROR POST PERSON')
-        console.log('       NAME ALREADY IN THE PHONEBOOK')
         return response.status(400).json({
             error: 'name must be unique'
         })
     }
 
     persons = persons.concat(person)
-
-    console.log(`   POSTED PERSON:`)
-    console.log(`       NAME:${person.name}`)
-    console.log(`       NUMBER:${person.number}`)
-    console.log(`       ID:${person.id}`)
 
     response.json(person)
 })
