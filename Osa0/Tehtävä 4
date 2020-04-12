@@ -1,7 +1,7 @@
 Selain -> Palvelin:HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
 Palvelin -> Selain: HTTP 302 eli found redirect
 Selain -> Palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
-Palvelin -> Selain: HTML
+Palvelin -> Selain: HTML, HTTP 200 OK
 
 note over Selain 
 Selain suorittaa HTML-koodia
@@ -9,16 +9,16 @@ HTML koodii pyytää CSS ja JavaScript tiedostot
 end note
 
 Selain -> Palvelin : HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
-Palvelin -> Selain : main.css
+Palvelin -> Selain : main.css, HTTP 200 OK
 Selain  -> Palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
-Palvelin -> Selain: main.js
+Palvelin -> Selain: main.js, HTTP 200 OK
 
 note over Selain 
 Suoritetaan main.js tiedostoa, jonka lopussa haetaan dataa JSON muodossa osoitteesta /data.json
 end note
 
 Selain -> Palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
-Palvelin -> Selain : Palautetaan palvelimelle tallennettua dataa
+Palvelin -> Selain : Palautetaan palvelimelle tallennettua dataa, HTTP 200 OK
 
 
-//https://www.websequencediagrams.com/
+https://www.websequencediagrams.com/

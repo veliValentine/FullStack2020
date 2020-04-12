@@ -1,5 +1,5 @@
 Selain -> Palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa
-Palvelin -> Selain: HTML
+Palvelin -> Selain: HTML, HTTP 200 OK
 note left of Selain 
 Selain lukee HTML tiedostoa
 HTML pyytää selaimelta
@@ -8,9 +8,9 @@ HTML pyytää selaimelta
 end note
 
 Selain -> Palvelin : HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
-Palvelin -> Selain : main.css
+Palvelin -> Selain : main.css, HTTP 200 OK
 Selain -> Palvelin : HTTP GET https://fullstack-exampleapp.herokuapp.com/spa.js
-Palvelin -> Selain: spa.js
+Palvelin -> Selain: spa.js, HTTP 200 OK
 
 note left of Selain 
 Selaimella luetaan spa.js tiedostoa
@@ -18,7 +18,7 @@ Tehdään selaimelle pyyntö data-tiedostosta data.json
 end note
 
 Selain -> Palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
-Palvelin -> Selain : data.json
+Palvelin -> Selain : data.json, HTTP 200 OK
 
 
 https://www.websequencediagrams.com/
