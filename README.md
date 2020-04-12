@@ -8,6 +8,7 @@
     Tehty 2.1-2.11
     *Puuttu eri maiden tiedot*
     Tehty 2.15-2.20
+    Siisti muita osa2 tiedostoja!!!
 <h2>osa3</h2>
     Tehty 3.1-3.7
     Loppu siirretty omaan repositorioon varmuuden vuoksi
