@@ -3,7 +3,7 @@
 <h2>osa0</h2>
     Tehty 0.1-0.6
 <h2>osa1</h2>
-    Tehty 1.1-1.11
+    Tehty 1.1-1.14
 <h2>osa2</h2>
     Tehty 2.1-2.11
     Tehty 2.15-2.20
