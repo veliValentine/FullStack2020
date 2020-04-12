@@ -1,7 +1,7 @@
 # FullStack2020
 
 <h2>osa0</h2>
-    Tekemättä
+    Tehty 0.1-0.6
 <h2>osa1</h2>
     Tehty 1.1-1.11
 <h2>osa2</h2>
