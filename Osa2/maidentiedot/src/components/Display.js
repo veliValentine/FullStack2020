@@ -1,5 +1,4 @@
 import React from 'react'
-
 const Languages = ({ languages }) => {
     return (
         <div>
@@ -23,8 +22,8 @@ const Flag = ({ src }) => {
     )
 }
 
-const Info = ({name, capital, population}) => {
-    return(
+const Info = ({ name, capital, population }) => {
+    return (
         <div>
             <h2>{name}</h2>
             capital {capital}
@@ -37,24 +36,30 @@ const Info = ({name, capital, population}) => {
 const Country = ({ country }) => {
     return (
         <div>
-            <Info name={country.name} capital={country.capital} population={country.population}/>
+            <Info name={country.name} capital={country.capital} population={country.population} />
             <Languages languages={country.languages} />
             <Flag src={country.flag} />
         </div>
     )
 }
 
-const ListCountries = ({ countries }) => {
+const ListCountries = ({ countries, setCountry }) => {
     return (
-        <ul>
+        <div>
             {countries.map(c => (
-                <li key={c.name}>{c.name}</li>
+                <div key={c.name}>
+                    {c.name} 
+                    <button onClick={() => setCountry(c.name)}>
+                        show
+                    </button>
+                </div>
             ))}
-        </ul>
+        </div>
+
     )
 }
 
-const Display = ({ countries }) => {
+const Display = ({ countries, setCountry }) => {
     if (countries.length > 10) {
         return (
             <div>
@@ -81,7 +86,7 @@ const Display = ({ countries }) => {
 
     return (
         <div>
-            <ListCountries countries={countries} />
+            <ListCountries countries={countries} setCountry={setCountry} />
         </div>
     )
 }
