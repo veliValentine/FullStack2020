@@ -1,10 +1,70 @@
 import React, { useState, useEffect } from 'react'
 import countryService from './services/maidentiedot'
+import weatherService from './services/weatherService'
+
+const Weather = ({ country }) => {
+    const [weather, setWeather] = useState('')
+
+    useEffect(() => {
+        weatherService
+            .getByName(country.capital).then(we => setWeather(we))
+    }, [country.capital])
+
+    if (weather == null) {
+        console.log('NULL WEATHER')
+        return (
+            <></>
+        )
+    }
+    if (weather === undefined) {
+        console.log('undefined WEATHER')
+        return (
+            <></>
+        )
+    }
+    if (weather.location === undefined || weather.current === undefined) {
+        console.log('undefined WEATHER')
+        return (
+            <></>
+        )
+    }
+    console.log('found weather information')
+    const name = weather.location.name
+    const t = weather.current.temperature
+    const imgSRC = weather.current.weather_icons[0]
+    const windSpeed = weather.current.wind_speed
+    const windDir = weather.current.wind_dir
+
+    return (
+        <div>
+            <div><h3>Weather in {name}</h3></div>
+            <div><b>temperature:</b> {t} Celsius</div>
+            <div><img alt={'weather symbol'} src={imgSRC} length={30} width={30} /> </div>
+            <div><b>wind:</b> {windSpeed} mph direction {windDir}</div>
+        </div>
+    )
+}
+
+const Countries = ({ countries, setFilter }) => {
+    return (
+        <div>
+            {countries.map(c => (
+                <div key={c.name}>
+                    {c.name}
+                    <button onClick={() => setFilter(c.name)}>show</button>
+                </div>
+            ))}
+        </div>
+    )
+}
 
 const Languages = ({ languages }) => {
     return (
         <div>
-            <h3>languages</h3>
+            <h3>
+                Spoken languages
+            </h3>
+
             <ul>
                 {languages.map(l => (
                     <li key={l.name}>
@@ -12,56 +72,32 @@ const Languages = ({ languages }) => {
                     </li>
                 ))}
             </ul>
-        </div>
-    )
-}
-
-const Flag = ({ src }) => {
-    return (
-        <div>
-            <img alt={'country flag'} src={src} height={70} width={100} />
-        </div>
-    )
-}
-
-const Info = ({ name, capital, population }) => {
-    return (
-        <div>
-            <h2>{name}</h2>
-            capital {capital}
-            <br />
-            population {population}
-        </div>
+        </div >
     )
 }
 
 const Country = ({ country }) => {
     return (
         <div>
-            <Info name={country.name} capital={country.capital} population={country.population} />
+            <h2>{country.name}</h2>
+            <div>
+                capital {country.capital}
+                <br />
+                population {country.population}
+            </div>
             <Languages languages={country.languages} />
-            <Flag src={country.flag} />
-        </div>
+            <div>
+                <img alt={'country flag'} src={country.flag} height={70} width={100} />
+            </div>
+            <Weather country={country} />
+        </div >
     )
 }
 
-const ListCountries = ({ countries, setCountry }) => {
-    return (
-        <div>
-            {countries.map(c => (
-                <div key={c.name}>
-                    {c.name} 
-                    <button onClick={() => setCountry(c.name)}>
-                        show
-                    </button>
-                </div>
-            ))}
-        </div>
+const ShowCountries = ({ filter, allCountries, setFilter }) => {
+    console.log('Filtering countries...', filter)
+    const countries = allCountries.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()))
 
-    )
-}
-
-const Display = ({ countries, setCountry }) => {
     if (countries.length > 10) {
         return (
             <div>
@@ -69,69 +105,52 @@ const Display = ({ countries, setCountry }) => {
             </div>
         )
     }
-
-    if (countries.length === 1) {
-        return (
-            <div>
-                <Country country={countries[0]} />
-            </div>
-        )
-    }
-
     if (countries.length === 0) {
         return (
             <div>
-                Could not find any :( Try different filter!
+                No matches, specify another filter
             </div>
         )
     }
-
+    if (countries.length === 1) {
+        const c = countries[0]
+        return (
+            <div>
+                <Country country={c} />
+            </div>
+        )
+    }
     return (
         <div>
-            <ListCountries countries={countries} setCountry={setCountry} />
+            <Countries countries={countries} setFilter={setFilter} />
         </div>
-    )
-}
-
-const FindCountry = ({ country, setCountry }) => {
-    const handleCountry = (event) => {
-        console.log('lookin countries ->', event.target.value)
-        setCountry(event.target.value)
-    }
-
-    return (
-        <form>
-            find countries
-            <input value={country} onChange={handleCountry} />
-        </form>
     )
 }
 
 const App = () => {
     const [allCountries, setAllCountries] = useState([])
-    const [country, setCountry] = useState('')
+    const [filter, setFilter] = useState('')
 
     useEffect(() => {
         countryService
             .getAll()
-            .then(allCountries => {
-                setAllCountries(allCountries)
+            .then(countries => {
+                setAllCountries(countries)
             })
     }, [])
 
-    const filterCountries = () => {
-        console.log('filterin countries...')
-        const someCountries = allCountries.filter(
-            c => c.name.toLowerCase().includes(country.toLowerCase())
-        )
-        console.log('filtered countries', someCountries, someCountries.length)
-        return someCountries
+    const handleChange = (event) => {
+        setFilter(event.target.value)
+        console.log(event.target.value, filter)
     }
-
     return (
         <div>
-            <FindCountry country={country} setCountry={setCountry} />
-            <Display countries={filterCountries()} setCountry={setCountry} />
+            <form>
+                find countries
+            <input value={filter} onChange={handleChange} />
+            </form>
+
+            <ShowCountries allCountries={allCountries} filter={filter} setFilter={setFilter} />
         </div>
     )
 }

@@ -7,7 +7,8 @@ const getAll = () => {
 }
 
 const getByName = (name) => {
-    return axios.get(`${baseUrl}/name/${name}`)
+    const request = axios.get(`${baseUrl}/name/${name}`)
+    return request.then(response => response.data)
 }
 
 export default {getAll, getByName}
