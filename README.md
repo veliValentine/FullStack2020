@@ -7,9 +7,8 @@
 <h2>osa2</h2>
     Tehty 2.1-2.20
 <h2>osa3</h2>
-    Tehty 3.1-3.7
-    Tehty 3.9-3.11
-    Puhelinluettelo siiretty omaan repositorioon <b>***LINKKI***</b>
+    Tehty 3.1-3.11
+    Puhelinluettelo siiretty omaan repositorioon <b>https://github.com/veliValentine/FullStack2020Phonebook</b>
 <h2>osa4</h2>
 <h2>osa5</h2>
 <h2>osa6</h2>

@@ -69,7 +69,6 @@ const App = () => {
     event.preventDefault()
     console.log('click', event.target)
 
-
     const personObj = {
       name: newName,
       number: newNumber,
@@ -82,7 +81,7 @@ const App = () => {
 
     if (!nameIsNotInDb) {
       if (window.confirm(`${personObj.name} is already added to phonebook, replace the old number with a new one?`)) {
-
+        //Update information on Person
         const id = persons.find(person => person.name === personObj.name).id
 
         personService
