@@ -170,6 +170,7 @@ const App = () => {
 
   return (
     <div>
+      <a href='./api/persons'>data</a>
       <Title title={'Phonebook'} />
 
       <Notification message={notification} error={error} />
