@@ -46,6 +46,14 @@ const App = () => {
   console.log({ newName });
   console.log({ newNumber });
 
+  const clearError = () => {
+    setError(true)
+    setTimeout(() => {
+      setNotification(null)
+      setError(false)
+    }, 10000)
+  }
+
   useEffect(() => {
     console.log('effect')
     personService
@@ -55,11 +63,7 @@ const App = () => {
       })
       .catch(error => {
         setNotification('Database not found')
-        setError(true)
-        setTimeout(() => {
-          setNotification(null)
-          setError(false)
-        }, 10000)
+        clearError()
       })
   }, [])
 
@@ -97,14 +101,11 @@ const App = () => {
           })
           .catch(error => {
             setNotification(
-              `Information of ${personObj.name} has already been removed from server`
+              error.response.data.error
+              //`Information of ${personObj.name} has already been removed from server`
             )
-            setError(true)
-            setTimeout(() => {
-              setNotification(null)
-              setError(false)
-            }, 10000)
-            setPersons(persons.filter(p => p.id !== id))
+            clearError()
+            //setPersons(persons.filter(p => p.id !== id))
           })
       }
 
@@ -121,7 +122,8 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          setNotification(`Failed to create person ${personObj.name}`)
+          setNotification(error.response.data.error)
+          //setNotification(`Failed to create person ${personObj.name}`)
           setError(true)
           setTimeout(() => {
             setNotification(null)
@@ -144,12 +146,9 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          setNotification(`Information of ${person.name} has already been removed from server`)
-          setError(true)
-          setTimeout(() => {
-            setNotification(null)
-            setError(false)
-          }, 10000)
+          setNotification(error.response.data.error)
+          //setNotification(`Information of ${person.name} has already been removed from server`)
+          clearError()
           setPersons(persons.filter(p => p.id !== person.id))
         })
     }
