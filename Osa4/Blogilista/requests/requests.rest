@@ -1,0 +1,19 @@
+//GET BLOGS
+GET http://localhost:3003/api/blogs
+
+###//GET BLOG
+GET http://localhost:3003/api/blogs/5ebc71f11a49b63340a59b34
+
+###//POST BLOG
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title":"Otsikko",
+"author":"Kirjoittaja",
+"url":"Osoite",
+"likes":2
+}
+
+###//DELETE
+DELETE http://localhost:3003/api/blogs/5ebc71f11a49b63340a59b34
