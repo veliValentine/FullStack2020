@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "start chrome http://localhost:3003/api/blogs && nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "save": "git add . && git commit -m save && git push"
   },
   "author": "veliValentine",
   "license": "MIT",
