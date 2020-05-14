@@ -2,18 +2,28 @@
 GET http://localhost:3003/api/blogs
 
 ###//GET BLOG
-GET http://localhost:3003/api/blogs/5ebc71f11a49b63340a59b34
+GET http://localhost:3003/api/blogs/5ebc700d12367d187401e993
 
 ###//POST BLOG
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title":"Otsikko",
-"author":"Kirjoittaja",
-"url":"Osoite",
-"likes":2
+  "title":"Otsikko!",
+  "author":"Kirjoittaja!",
+  "url":"Osoite!",
+  "likes":22
 }
 
+###//PUT
+PUT http://localhost:3003/api/blogs/5ebd3216a3dd343a14f0abf4
+Content-Type: application/json
+
+{
+  "title":"Otsikko!",
+  "author":"Kirjoittaja!",
+  "url":"Osoite!",
+  "likes":220
+}
 ###//DELETE
-DELETE http://localhost:3003/api/blogs/5ebc71f11a49b63340a59b34
+DELETE http://localhost:3003/api/blogs/5ebd3153a3dd343a14f0abf3
