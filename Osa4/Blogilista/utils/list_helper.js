@@ -20,8 +20,24 @@ const favoriteBlog = (blogs) => {
   return blogWithMostLikes === undefined ? {} : blogWithMostLikes
 }
 
+const filterAuthor = (blog, author) => {
+  return blog.author === author
+}
+
+const mostBlogs = (blogs) => {
+  let author
+  blogs.forEach(blog => {
+    author = author || { author: blog.author, blogs: 0 }
+    const n = blogs.filter(b => filterAuthor(b, author.author)).length
+    author = n < author.blogs ? author : { author: blog.author, blogs: n }
+  })
+
+  return author === undefined ? {} : author
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
+  mostBlogs,
 }
