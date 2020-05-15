@@ -6,13 +6,14 @@
   "scripts": {
     "start": "node index.js",
     "dev": "start chrome http://localhost:3003/api/blogs && nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "save": "git add . && git commit -m save && git push"
   },
   "author": "veliValentine",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.0.0",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.3"
   },
   "dependencies": {
@@ -20,5 +21,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.13"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
