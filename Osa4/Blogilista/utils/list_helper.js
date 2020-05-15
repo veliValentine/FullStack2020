@@ -25,14 +25,27 @@ const filterAuthor = (blog, author) => {
 }
 
 const mostBlogs = (blogs) => {
-  let author
+  let authorWithMostBlogs
   blogs.forEach(blog => {
-    author = author || { author: blog.author, blogs: 0 }
-    const n = blogs.filter(b => filterAuthor(b, author.author)).length
-    author = n < author.blogs ? author : { author: blog.author, blogs: n }
+    authorWithMostBlogs = authorWithMostBlogs || { author: blog.author, blogs: 0 }
+    const n = blogs.filter(b => filterAuthor(b, authorWithMostBlogs.author)).length
+    authorWithMostBlogs = n < authorWithMostBlogs.blogs ? authorWithMostBlogs : { author: blog.author, blogs: n }
   })
 
-  return author === undefined ? {} : author
+  return authorWithMostBlogs === undefined ? {} : authorWithMostBlogs
+}
+
+const mostLikes = (blogs) => {
+  let a
+  blogs.forEach(blog => {
+    a = a || { author: blog.author, likes: blog.likes }
+    const likes = blogs
+      .filter(b => filterAuthor(b, blog.author))
+      .reduce((sum, obj) => sum + obj.likes, 0)
+
+    a = likes < a.likes ? a : { author: blog.author, likes: likes }
+  })
+  return a === undefined ? {} : a
 }
 
 module.exports = {
@@ -40,4 +53,5 @@ module.exports = {
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes
 }
