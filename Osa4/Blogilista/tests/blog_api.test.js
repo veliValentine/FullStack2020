@@ -69,6 +69,10 @@ describe('POSTing blogs ', () => {
     expect(authors).toContain(newBlog.author)
     expect(url).toContain(newBlog.url)
     expect(likes).toContain(newBlog.likes)
+
+    const zeroLikesBefore = helper.initialBlogs.filter(b => b.likes === 0).length
+    const zeroLikesAfter = blogsAtEnd.filter(b => b.likes === 0).length
+    expect(zeroLikesAfter).toBe(zeroLikesBefore)
   })
 
   test('a blog without likes can be added', async () => {
@@ -86,6 +90,10 @@ describe('POSTing blogs ', () => {
 
     const blogsAtEnd = await helper.blogsInDB()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+
+    const zeroLikesBefore = helper.initialBlogs.filter(b => b.likes === 0).length
+    const zeroLikesAfter = blogsAtEnd.filter(b => b.likes === 0).length
+    expect(zeroLikesAfter).toBe(zeroLikesBefore + 1)
   })
 
   test('blog without author is not added', async () => {
