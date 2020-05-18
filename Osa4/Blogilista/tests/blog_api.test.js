@@ -13,7 +13,7 @@ beforeEach(async () => {
   await Blog.insertMany(helper.initialBlogs)
 })
 
-describe('GETting blogs ', () => {
+describe('GETting blogs', () => {
   test('blogs are returned as JSON', async () => {
     await api
       .get(URL)
@@ -27,10 +27,18 @@ describe('GETting blogs ', () => {
     expect(response.body).toHaveLength(helper.initialBlogs.length)
   })
 
-  test('blogs contain field id', async () => {
+  test('specific blog is returned', async () => {
     const response = await api.get(URL)
-    const fieldID = response.body.map(b => b.id)
-    expect(fieldID).toBeDefined()
+
+    const titles = response.body.map(b => b.title)
+    const authors = response.body.map(b => b.author)
+    const url = response.body.map(b => b.url)
+    const likes = response.body.map(b => b.likes)
+
+    expect(titles).toContain(helper.initialBlogs[0].title)
+    expect(authors).toContain(helper.initialBlogs[0].author)
+    expect(url).toContain(helper.initialBlogs[0].url)
+    expect(likes).toContain(helper.initialBlogs[0].likes)
   })
 
   test('blogs contain id instead of _id', async () => {
@@ -39,6 +47,35 @@ describe('GETting blogs ', () => {
 
     expect(blog.id).toBeDefined()
     expect(blog._id).toBeUndefined()
+  })
+})
+
+describe('GETting blogs with id', () => {
+  test('succeeds with a valid id', async () => {
+    const blogsAtStart = await helper.blogsInDB()
+
+    const blogToView = blogsAtStart[0]
+
+    const resultBlog = await api
+      .get(`${URL}/${blogToView.id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(resultBlog.body).toEqual(blogToView)
+  })
+
+  test('fails with statuscode 404 if blog does not exist', async () => {
+    const validNonexistingId = await helper.nonExsistingId()
+
+    await api
+      .get(`${URL}/${validNonexistingId}`)
+      .expect(404)
+  })
+
+  test('fails with statuscode 400 id is invalid', async () => {
+    await api
+      .get(`${URL}/${123}`)
+      .expect(400)
   })
 })
 
@@ -148,7 +185,51 @@ describe('POSTing blogs ', () => {
   })
 })
 
+describe('DELETE blogs', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const blogsAtStart = await helper.blogsInDB()
+    const blogToDelete = blogsAtStart[0]
 
+    await api
+      .delete(`${URL}/${blogToDelete.id}`)
+      .expect(204)
+
+    const blogsAtEnd = await helper.blogsInDB()
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+
+    const titles = blogsAtEnd.map(b => b.title)
+    const authors = blogsAtEnd.map(b => b.author)
+    const url = blogsAtEnd.map(b => b.url)
+
+    expect(titles).not.toContain(blogToDelete.title)
+    expect(authors).not.toContain(blogToDelete.author)
+    expect(url).not.toContain(blogToDelete.url)
+  })
+
+  test('fails with invalid id', async () => {
+    await api
+      .delete(`${URL}/123`)
+      .expect(400)
+    const blogsAtEnd = await helper.blogsInDB()
+    expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
+  })
+})
+
+describe('PUT blogs', () => {
+  test('likes can be added', async () => {
+    let blogsAtStart = await helper.blogsInDB()
+    const modifiedBlog = blogsAtStart[0]
+    modifiedBlog.likes = modifiedBlog.likes + 1
+    await api
+      .put(`${URL}/${modifiedBlog.id}`)
+      .send(modifiedBlog)
+      .expect(200)
+    const blogsAtEnd = await helper.blogsInDB()
+    const blog = blogsAtEnd.filter(b => b.id === modifiedBlog.id)[0]
+    expect(blog.likes).toBe(modifiedBlog.likes)
+  })
+})
 afterAll(() => {
   mongoose.connection.close()
 })
