@@ -1,12 +1,15 @@
+###//GET ALL
+GET http://localhost:3003/api/users
+
 ###//POST
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "username" : "nick",
+  "username" : "nic",
   "name": "me",
-  "password": "nick"
+  "password": "nic"
 }
 
 ###//DELETE
-DELETE http://localhost:3003/api/users/5ec3e325d7d11d0bf416cccb
+DELETE http://localhost:3003/api/users/5ec3e7bd27fd011a6ca58529
