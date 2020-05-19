@@ -80,7 +80,6 @@ describe('username and password validation', () => {
     expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
   })
 
-
   test('creation of user fails if username is too short', async () => {
     const usersAtStart = await helper.usersInDb()
 

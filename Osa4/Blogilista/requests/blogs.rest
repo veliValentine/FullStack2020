@@ -12,7 +12,8 @@ Content-Type: application/json
   "title":"Otsikko!",
   "author":"Kirjoittaja!",
   "url":"Osoite!",
-  "likes":22
+  "likes":22,
+  "userId":"5ec3e34dd7d11d0bf416cccc"
 }
 
 ###//PUT
@@ -26,4 +27,4 @@ Content-Type: application/json
   "likes":220
 }
 ###//DELETE
-DELETE http://localhost:3003/api/blogs/5ebd3153a3dd343a14f0abf3
+DELETE http://localhost:3003/api/blogs/5ebc700d12367d187401e993
