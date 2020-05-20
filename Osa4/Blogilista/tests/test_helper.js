@@ -38,5 +38,5 @@ module.exports = {
   initialBlogs,
   nonExsistingId,
   blogsInDB,
-  usersInDb
+  usersInDb,
 }
