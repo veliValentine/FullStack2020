@@ -6,7 +6,6 @@ const Notification = ({ message, error }) => {
   }
 
   if (!error) {
-    console.log('MESSAGE')
     return (
       <div className="success">
         {message}
