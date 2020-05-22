@@ -20,7 +20,7 @@ const Logout = ({ blogService, user, setUser }) => {
   )
 }
 
-const BlogForm = ({ blogService, blogs, setBlogs, setMessage, setError }) => {
+const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -91,9 +91,10 @@ const App = () => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs)
-    )
+    blogService.getAll()
+      .then(blogs =>
+        setBlogs(blogs)
+      )
   }, [])
 
   useEffect(() => {
@@ -161,10 +162,10 @@ const App = () => {
       <Notifications message={message} error={error} />
       <Logout blogService={blogService} user={user} setUser={setUser} />
       <Toggable buttonLabel="new note">
-        <BlogForm blogService={blogService} blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
+        <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
       </Toggable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
       )}
     </div>
   )
