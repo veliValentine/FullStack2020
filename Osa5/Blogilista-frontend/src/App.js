@@ -130,6 +130,10 @@ const App = () => {
     }
   }
 
+  const sortByLikes = (a, b) => {
+    return b.likes - a.likes
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>log in to application</h2>
@@ -164,7 +168,7 @@ const App = () => {
       <Toggable buttonLabel="new note">
         <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
       </Toggable>
-      {blogs.map(blog =>
+      {blogs.sort(sortByLikes).map(blog =>
         <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} />
       )}
     </div>
