@@ -25,26 +25,23 @@ const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const addBlog = (event) => {
+  const addBlog = async (event) => {
     event.preventDefault()
     const blogObject = {
       title: title,
       author: author,
       url: url
     }
-    blogService
-      .create(blogObject)
-      .then(returneBlog => {
-        setBlogs(blogs.concat(returneBlog))
-        setTitle('')
-        setAuthor('')
-        setUrl('')
-        setError(false)
-        setMessage(`a new blog ${title} by ${author}`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 2000);
-      })
+    const addedBlog = await blogService.create(blogObject)
+    setBlogs(blogs.concat(addedBlog))
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+    setError(false)
+    setMessage(`a new blog ${title} by ${author}`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 2000)
   }
 
   return (
@@ -116,7 +113,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
-      blogService.setToken(user.setToken)
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -169,7 +166,7 @@ const App = () => {
         <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
       </Toggable>
       {blogs.sort(sortByLikes).map(blog =>
-        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} />
+        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} loggedUser={user} />
       )}
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, blogs, setBlogs }) => {
+const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
   const [showAll, setShowAll] = useState(false)
   const hideWhenVisible = { display: showAll ? 'none' : '' }
   const showWhenVisible = { display: showAll ? '' : 'none' }
@@ -31,6 +31,17 @@ const Blog = ({ blog, blogs, setBlogs }) => {
     }
   }
 
+  const deleteBlog = async () => {
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      try {
+        await blogService.deleteBlog(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+      } catch (e) {
+        console.error('Poistaminen ei onnistu')
+      }
+    }
+  }
+
   const user = typeof blog.user !== String
     ? blog.user : console.log('nimi on id')
 
@@ -50,6 +61,12 @@ const Blog = ({ blog, blogs, setBlogs }) => {
         <button onClick={addLike}>like</button>
         <br />
         {user.name}
+        <br />
+        {user.id !== loggedUser.id
+          ? null
+          : <button onClick={deleteBlog}>remove</button>
+        }
+
       </div>
     </div>
   )
