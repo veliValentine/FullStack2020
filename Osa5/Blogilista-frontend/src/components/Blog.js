@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, setBlogs }) => {
+const Blog = ({ blog, blogs, setBlogs }) => {
   const [showAll, setShowAll] = useState(false)
   const hideWhenVisible = { display: showAll ? 'none' : '' }
   const showWhenVisible = { display: showAll ? '' : 'none' }
@@ -20,9 +20,12 @@ const Blog = ({ blog, setBlogs }) => {
 
   const addLike = async () => {
     try {
-      blog.likes = blog.likes + 1
-      const newBlog = await blogService.update(blog.id, blog)
-      
+      const blogObject = {
+        ...blog,
+        likes: blog.likes + 1,
+      }
+      await blogService.update(blog.id, blogObject)
+      setBlogs(blogs.map(b => b.id !== blogObject.id ? b : blogObject))
     } catch (e) {
       console.error('failed to add like', { blog })
     }

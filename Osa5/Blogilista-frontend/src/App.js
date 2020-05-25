@@ -165,7 +165,7 @@ const App = () => {
         <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
       </Toggable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
+        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} />
       )}
     </div>
   )
