@@ -43,7 +43,7 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
   }
 
   const user = typeof blog.user !== String
-    ? blog.user : console.log('nimi on id')
+    ? blog.user : console.error('nimi on id')
 
   return (
     <div style={blogStyle}>
@@ -66,7 +66,6 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
           ? null
           : <button onClick={deleteBlog}>remove</button>
         }
-
       </div>
     </div>
   )
