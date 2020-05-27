@@ -3,10 +3,10 @@ module.exports = {
     'browser': true,
     'es6': true
   },
-  'extends': [
+  'extends': 'react-app',/*[
     'eslint:recommended',
     'plugin:react/recommended'
-  ],
+  ],*/
   'parserOptions': {
     'ecmaFeatures': {
       'jsx': true

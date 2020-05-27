@@ -122,7 +122,7 @@ const App = () => {
       setTimeout(() => {
         setMessage(null)
         setError(false)
-      }, 2000);
+      }, 2000)
     }
   }
 
@@ -136,7 +136,7 @@ const App = () => {
       <Notifications message={message} error={error} />
       <div>
         username
-      <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -145,7 +145,7 @@ const App = () => {
       </div>
       <div>
         password
-      <input
+        <input
           type="text"
           value={password}
           name="Password"
