@@ -2,6 +2,17 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
+const UserInfo = ({ user, loggedUser, deleteBlog }) => {
+  return (
+    <div>
+      {user.id !== loggedUser.id
+        ? null
+        : <button onClick={deleteBlog}>remove</button>
+      }
+    </div>
+  )
+}
+
 const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
   const [showAll, setShowAll] = useState(false)
   const hideWhenVisible = { display: showAll ? 'none' : '' }
@@ -63,10 +74,7 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
         <br />
         {user.name}
         <br />
-        {user.id !== loggedUser.id
-          ? null
-          : <button onClick={deleteBlog}>remove</button>
-        }
+        <UserInfo user={user} loggedUser={loggedUser} deleteBlog={deleteBlog}/>
       </div>
     </div>
   )
