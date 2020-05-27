@@ -49,7 +49,7 @@ const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
       <h2>create new</h2>
       <div>
         title:
-          <input
+        <input
           type="text"
           value={title}
           name="Title"
@@ -58,7 +58,7 @@ const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
       </div>
       <div>
         author:
-          <input
+        <input
           type="text"
           value={author}
           name="Author"
@@ -67,7 +67,7 @@ const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
       </div>
       <div>
         url:
-          <input
+        <input
           type="text"
           value={url}
           name="Url"

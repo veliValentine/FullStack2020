@@ -11,8 +11,7 @@ const Notification = ({ message, error }) => {
         {message}
       </div>)
   }
-  console.error('MESSAGE');
-  
+
   return (
     <div className="error">
       {message}

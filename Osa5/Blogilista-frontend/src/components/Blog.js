@@ -12,7 +12,7 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5
-  }
+  };
 
   const toggleVisibility = () => {
     setShowAll(!showAll)
