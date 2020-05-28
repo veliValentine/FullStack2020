@@ -22,8 +22,8 @@
 <table>
   <tr>
     <th>Part</th>
-    <th>Exercises in Part</th>
-    <th>Sum of exercises</th>
+    <th>Exercises</th>
+    <th>Sum</th>
     <th>Credits</th>
     <th>Grade</th>
     <th>Exercises-limit</th>
