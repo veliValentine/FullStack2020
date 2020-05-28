@@ -88,11 +88,13 @@
     <td>26</td>
     <td>22/26</td>
     <td>8</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>9</td>
     <td>27</td>
     <td>24/27</td>
     <td>9</td>
+    <td>-</td>
   </tr>
 </table>
