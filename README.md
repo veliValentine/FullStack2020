@@ -31,6 +31,8 @@
     <th>0</th>
     <th>6</th>
     <th>6</th>
+    <th>-</th>
+    <th>-</th>
   </tr>
   <tr>
     <th></th>
