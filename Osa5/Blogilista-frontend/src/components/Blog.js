@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 const UserInfo = ({ user, loggedUser, deleteBlog }) => {
   return (
     <div>
+      {user.name}
+      <br />
       {user.id !== loggedUser.id
         ? null
         : <button onClick={deleteBlog}>remove</button>
@@ -12,6 +14,14 @@ const UserInfo = ({ user, loggedUser, deleteBlog }) => {
     </div>
   )
 }
+
+const Likes = ({ likes, addLike }) => (
+  <div>
+    likes {likes}
+    <button onClick={addLike}>like</button>
+  </div>
+)
+
 
 const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
   const [showAll, setShowAll] = useState(false)
@@ -55,7 +65,7 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
   }
 
   const user = typeof blog.user !== String
-    ? blog.user : console.error('nimi on id')
+    ? blog.user : null
 
   return (
     <div style={blogStyle}>
@@ -68,13 +78,8 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
         <button onClick={toggleVisibility}>hide</button>
         <br />
         <a href={blog.url}>{blog.url}</a>
-        <br />
-        likes {blog.likes}
-        <button onClick={addLike}>like</button>
-        <br />
-        {user.name}
-        <br />
-        <UserInfo user={user} loggedUser={loggedUser} deleteBlog={deleteBlog}/>
+        <Likes className="likes" likes={blog.likes} addLike={addLike} />
+        <UserInfo className="userInfo" user={user} loggedUser={loggedUser} deleteBlog={deleteBlog} />
       </div>
     </div>
   )
