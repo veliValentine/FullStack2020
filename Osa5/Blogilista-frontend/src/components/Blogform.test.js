@@ -41,7 +41,7 @@ describe('<BlogForm />', () => {
 
     const createBlogObject = createBlog.mock.calls[0][0]
 
-    //Check that send data equals to received
+    //Check that send blog equals to received blog
     expect(createBlogObject).toEqual(blogObject)
   })
 })
