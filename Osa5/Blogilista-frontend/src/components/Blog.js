@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
 const UserInfo = ({ user, loggedUser, deleteBlog }) => {
   return (
-    <div>
+    <div className="userInfo">
       {user.name}
       <br />
       {user.id !== loggedUser.id
@@ -16,15 +15,15 @@ const UserInfo = ({ user, loggedUser, deleteBlog }) => {
 }
 
 const Likes = ({ likes, addLike }) => (
-  <div>
+  <div className="likes">
     likes {likes}
     <button onClick={addLike}>like</button>
   </div>
 )
 
-
-const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
+const Blog = ({ blog, loggedUser, likeBlog, deleteBlog }) => {
   const [showAll, setShowAll] = useState(false)
+
   const hideWhenVisible = { display: showAll ? 'none' : '' }
   const showWhenVisible = { display: showAll ? '' : 'none' }
 
@@ -38,30 +37,6 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
 
   const toggleVisibility = () => {
     setShowAll(!showAll)
-  }
-
-  const addLike = async () => {
-    try {
-      const blogObject = {
-        ...blog,
-        likes: blog.likes + 1,
-      }
-      await blogService.update(blog.id, blogObject)
-      setBlogs(blogs.map(b => b.id !== blogObject.id ? b : blogObject))
-    } catch (e) {
-      console.error('failed to add like', { blog })
-    }
-  }
-
-  const deleteBlog = async () => {
-    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      try {
-        await blogService.deleteBlog(blog.id)
-        setBlogs(blogs.filter(b => b.id !== blog.id))
-      } catch (e) {
-        console.error('Poistaminen ei onnistu')
-      }
-    }
   }
 
   const user = typeof blog.user !== String
@@ -78,8 +53,8 @@ const Blog = ({ blog, blogs, setBlogs, loggedUser }) => {
         <button onClick={toggleVisibility}>hide</button>
         <br />
         <a href={blog.url}>{blog.url}</a>
-        <Likes className="likes" likes={blog.likes} addLike={addLike} />
-        <UserInfo className="userInfo" user={user} loggedUser={loggedUser} deleteBlog={deleteBlog} />
+        <Likes likes={blog.likes} addLike={likeBlog} />
+        <UserInfo user={user} loggedUser={loggedUser} deleteBlog={deleteBlog} />
       </div>
     </div>
   )

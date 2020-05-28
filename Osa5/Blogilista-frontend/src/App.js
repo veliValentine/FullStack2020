@@ -67,6 +67,34 @@ const App = () => {
     }, 2000)
   }
 
+  const likeBlog = async (id) => {
+    const blog = blogs.find(b => b.id === id)
+    try {
+      const likedBlog = { ...blog, likes: blog.likes + 1 }
+      await blogService.update(id, likedBlog)
+      setBlogs(blogs.map(b => b.id !== id ? b : likedBlog))
+      setError(false)
+      setMessage(`Liked ${likedBlog.title} by ${likedBlog.author}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 2000)
+    } catch (e) {
+      console.error('Failed to like blog', { blog })
+    }
+  }
+
+  const deleteBlog = async (id) => {
+    const blog = blogs.find(b => b.id === id)
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      try {
+        await blogService.deleteBlog(id)
+        setBlogs(blogs.filter(b => b.id !== id))
+      } catch (e) {
+        console.error('Poistaminen epäonnistui', { blog })
+      }
+    }
+  }
+
   const blogFormRef = React.createRef()
 
   const content = () => (
@@ -78,7 +106,7 @@ const App = () => {
         <BlogForm createBlog={addBlog} />
       </Toggable>
       {blogs.sort(sortByLikes).map(blog =>
-        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} loggedUser={user} />
+        <Blog key={blog.id} blog={blog} loggedUser={user} likeBlog={() => likeBlog(blog.id)} deleteBlog={() => deleteBlog(blog.id)} />
       )}
     </div>
   )
