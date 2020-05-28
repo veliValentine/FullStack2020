@@ -20,13 +20,14 @@ const Logout = ({ blogService, user, setUser }) => {
   )
 }
 
-const BlogForm = ({ blogs, setBlogs, setMessage, setError }) => {
+const BlogForm = ({ blogs, setBlogs, setMessage, setError, blogFormRef }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
   const addBlog = async (event) => {
     event.preventDefault()
+    blogFormRef.current.toggleVisibility()
     const blogObject = {
       title: title,
       author: author,
@@ -156,13 +157,15 @@ const App = () => {
     </form>
   )
 
+  const blogFormRef = React.createRef()
+
   const content = () => (
     <div>
       <h2>blogs</h2>
       <Notifications message={message} error={error} />
       <Logout blogService={blogService} user={user} setUser={setUser} />
-      <Toggable buttonLabel="new note">
-        <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} />
+      <Toggable buttonLabel="new note" ref={blogFormRef}>
+        <BlogForm blogs={blogs} setBlogs={setBlogs} setMessage={setMessage} setError={setError} blogFormRef={blogFormRef} />
       </Toggable>
       {blogs.sort(sortByLikes).map(blog =>
         <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} loggedUser={user} />
