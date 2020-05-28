@@ -28,64 +28,64 @@
     <th>Grade</th>
   </tr>
   <tr>
-    <th>0</th>
-    <th>6</th>
-    <th>6</th>
+    <td>0</td>
+    <td>6</td>
+    <td>6</td>
   </tr>
   <tr>
-    <th>1</th>
-    <th>14</th>
-    <th>20</th>
+    <td>1</td>
+    <td>14</td>
+    <td>20</td>
   </tr>
   <tr>
-    <th>2</th>
-    <th>20</th>
-    <th>40</th>
+    <td>2</td>
+    <td>20</td>
+    <td>40</td>
   </tr>
   <tr>
-    <th>3</th>
-    <th>22</th>
-    <th>62</th>
-    <th>3</th>
+    <td>3</td>
+    <td>22</td>
+    <td>62</td>
+    <td>3</td>
   </tr>
   <tr>
-    <th>4</th>
-    <th>22</th>
-    <th>84</th>
-    <th>5</th>
-    <th>2</th>
+    <td>4</td>
+    <td>22</td>
+    <td>84</td>
+    <td>5</td>
+    <td>2</td>
   </tr>
   <tr>
-    <th>5</th>
-    <th>22</th>
-    <th>106</th>
-    <th>5</th>
-    <th>4</th>
+    <td>5</td>
+    <td>22</td>
+    <td>106</td>
+    <td>5</td>
+    <td>4</td>
   </tr>
   <tr>
-    <th>6</th>
-    <th>21</th>
-    <th>127</th>
-    <th>6</th>
-    <th>5</th>
+    <td>6</td>
+    <td>21</td>
+    <td>127</td>
+    <td>6</td>
+    <td>5</td>
   </tr>
   <tr>
-    <th>7</th>
-    <th>21</th>
-    <th>148</th>
-    <th>7</th>
-    <th>5</th>
+    <td>7</td>
+    <td>21</td>
+    <td>148</td>
+    <td>7</td>
+    <td>5</td>
   </tr>
   <tr>
-    <th>8</th>
-    <th>26</th>
-    <th>22/26</th>
-    <th>8</th>
+    <td>8</td>
+    <td>26</td>
+    <td>22/26</td>
+    <td>8</td>
   </tr>
   <tr>
-    <th>9</th>
-    <th>27</th>
-    <th>24/27</th>
-    <th>9</th>
+    <td>9</td>
+    <td>27</td>
+    <td>24/27</td>
+    <td>9</td>
   </tr>
 </table>
