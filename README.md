@@ -22,9 +22,12 @@
 <table>
   <tr>
     <th>Part</th>
-    <th>Exercises</th>
-    <th>Sum</th>
+    <th>Exercises in Part</th>
+    <th>Sum of exercises</th>
     <th>Credits</th>
+    <th>Grade</th>
+    <th>Exercises-limit</th>
+    <th>Credit</th>
     <th>Grade</th>
   </tr>
   <tr>
@@ -33,6 +36,9 @@
     <td>6</td>
     <td>-</td>
     <td>-</td>
+    <td>72</td>
+    <td>5</td>
+    <td>1</td>
   </tr>
   <tr>
     <td>1</td>
@@ -40,6 +46,9 @@
     <td>20</td>
     <td>-</td>
     <td>-</td>
+    <td>83</td>
+    <td>5</td>
+    <td>2</td>
   </tr>
   <tr>
     <td>2</td>
@@ -47,6 +56,9 @@
     <td>40</td>
     <td>-</td>
     <td>-</td>
+    <td>94</td>
+    <td>5</td>
+    <td>3</td>
   </tr>
   <tr>
     <td>3</td>
@@ -54,6 +66,9 @@
     <td>62</td>
     <td>3</td>
     <td>-</td>
+    <td>105</td>
+    <td>5</td>
+    <td>4</td>
   </tr>
   <tr>
     <td>4</td>
@@ -61,6 +76,9 @@
     <td>84</td>
     <td>5</td>
     <td>2</td>
+    <td>116</td>
+    <td>5</td>
+    <td>5</td>
   </tr>
   <tr>
     <td>5</td>
@@ -68,12 +86,18 @@
     <td>106</td>
     <td>5</td>
     <td>4</td>
+    <td>127</td>
+    <td>6</td>
+    <td>5</td>
   </tr>
   <tr>
     <td>6</td>
     <td>21</td>
     <td>127</td>
     <td>6</td>
+    <td>5</td>
+    <td>138</td>
+    <td>7</td>
     <td>5</td>
   </tr>
   <tr>
