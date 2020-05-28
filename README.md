@@ -31,70 +31,61 @@
     <th>0</th>
     <th>6</th>
     <th>6</th>
-    <th>-</th>
-    <th>-</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>1</th>
+    <th>14</th>
+    <th>20</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>2</th>
+    <th>20</th>
+    <th>40</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>3</th>
+    <th>22</th>
+    <th>62</th>
+    <th>3</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>4</th>
+    <th>22</th>
+    <th>84</th>
+    <th>5</th>
+    <th>2</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>5</th>
+    <th>22</th>
+    <th>106</th>
+    <th>5</th>
+    <th>4</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>6</th>
+    <th>21</th>
+    <th>127</th>
+    <th>6</th>
+    <th>5</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>7</th>
+    <th>21</th>
+    <th>148</th>
+    <th>7</th>
+    <th>5</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>8</th>
+    <th>26</th>
+    <th>22/26</th>
+    <th>8</th>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>9</th>
+    <th>27</th>
+    <th>24/27</th>
+    <th>9</th>
   </tr>
 </table>
