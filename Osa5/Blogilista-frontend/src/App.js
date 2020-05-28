@@ -52,11 +52,7 @@ const App = () => {
     }
   }
 
-  const loginForm = () => (
-    <LoginForm loginUser={login} message={message} error={error} />
-  )
-
-  const addBlog = async (blogObject) => {
+  const createBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
     const addedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(addedBlog))
@@ -102,8 +98,8 @@ const App = () => {
       <h2>blogs</h2>
       <Notifications message={message} error={error} />
       <LogoutForm blogService={blogService} user={user} setUser={setUser} />
-      <Toggable buttonLabel="new note" ref={blogFormRef}>
-        <BlogForm createBlog={addBlog} />
+      <Toggable buttonLabel="new blog" ref={blogFormRef}>
+        <BlogForm createBlog={createBlog} />
       </Toggable>
       {blogs.sort(sortByLikes).map(blog =>
         <Blog key={blog.id} blog={blog} loggedUser={user} likeBlog={() => likeBlog(blog.id)} deleteBlog={() => deleteBlog(blog.id)} />
@@ -114,7 +110,7 @@ const App = () => {
   return (
     <div>
       {user === null
-        ? loginForm()
+        ? <LoginForm loginUser={login} message={message} error={error} />
         : content()
       }
     </div>
