@@ -31,6 +31,7 @@
     <td>0</td>
     <td>6</td>
     <td>6</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>1</td>
