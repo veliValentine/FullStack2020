@@ -55,7 +55,7 @@ describe('<Blog />', () => {
   })
 
   test('cliking like twice calls function twice', () => {
-    const mockHandler = jest.fn()
+    //const mockHandler = jest.fn()
 
     const button = component.getByText('like')
     fireEvent.click(button)
