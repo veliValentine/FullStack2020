@@ -110,7 +110,7 @@ describe('Blog ', function () {
           .and('have.css', 'border-style', 'solid')
       })
 
-      it('a blog can be deleted by right user', function () {
+      it('a blog can be removed by right user', function () {
         cy.contains('view').click()
         cy.get('#remove-button').click().should('not.exist')
         cy.get('.hiddenBlog').should('not.have.class')
@@ -129,6 +129,64 @@ describe('Blog ', function () {
 
         cy.get('#view-button').click()
         cy.get('#remove-button').should('not.exist')
+      })
+    })
+
+    describe('when there is 3 blogs', () => {
+      const likes = [4, 3, 1]
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'first-title',
+          author: 'first-author',
+          url: 'firs-url',
+          likes: likes[2]
+        })
+        cy.createBlog({
+          title: 'second-title',
+          author: 'second-author',
+          url: 'second-url',
+          likes: likes[0]
+        })
+        cy.createBlog({
+          title: 'third-title',
+          author: 'third-author',
+          url: 'third-url',
+          likes: likes[1]
+        })
+      })
+      it('blogs are initially in right order', function () {
+        cy.get('.likes').its('length').should('be', 3)
+        cy.get('.likes').then(allLikes => {
+
+          for (let i = 0; i < allLikes.length; i++) {
+            cy.wrap(allLikes).its(i).should('contain', `likes ${likes[i]}`)
+          }
+        })
+      })
+
+      it('blogs are in right order after liking second blog twice', function () {
+        cy.get('.blog').its('length').should('be', 3)
+        cy.get('.blog').then(allLikes => {
+          cy.wrap(allLikes).its(0).should('contain', 'second-title second-author')
+          cy.wrap(allLikes).its(1).should('contain', 'third-title third-author')
+          cy.wrap(allLikes).its(2).should('contain', 'first-title first-author')
+        })
+        cy.contains('third-title')
+          .parent()
+          .find('#view-button')
+          .click()
+
+        cy.contains('third-title')
+          .parent()
+          .find('#like-button')
+          .click()
+          .click()
+
+        cy.get('.blog').then(allLikes => {
+          cy.wrap(allLikes).its(0).should('contain', 'third-title third-author')
+          cy.wrap(allLikes).its(1).should('contain', 'second-title second-author')
+          cy.wrap(allLikes).its(2).should('contain', 'first-title first-author')
+        })
       })
     })
   })

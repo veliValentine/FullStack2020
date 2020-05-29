@@ -15,7 +15,7 @@ const UserInfo = ({ user, loggedUser, deleteBlog }) => (
 const Likes = ({ likes, addLike }) => (
   <div className="likes">
     likes {likes}
-    <button onClick={addLike}>like</button>
+    <button onClick={addLike} id="like-button">like</button>
   </div>
 )
 
@@ -37,12 +37,11 @@ const Blog = ({ blog, loggedUser, likeBlog, deleteBlog }) => {
     setShowAll(!showAll)
   }
 
-  console.log(blog.user)
   const user = typeof blog.user !== String
     ? blog.user : null
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blog">
       <div style={hideWhenVisible} className="hiddenBlog">
         {blog.title} {blog.author}
         <button onClick={toggleVisibility} id="view-button">view</button>
