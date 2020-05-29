@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "start chrome http://localhost:3003/api/blogs && cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "save": "git add . && git commit -m save && git push"
+    "save": "git add . && git commit -m save && git push",
+    "start:test" : "cross-env NODE_ENV=test node index.js"
   },
   "author": "veliValentine",
   "license": "MIT",
