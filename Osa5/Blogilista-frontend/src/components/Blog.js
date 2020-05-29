@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const UserInfo = ({ user, loggedUser, deleteBlog }) => {
-  return (
-    <div className="userInfo">
-      {user.name}
-      <br />
-      {user.id !== loggedUser.id
-        ? null
-        : <button onClick={deleteBlog}>remove</button>
-      }
-    </div>
-  )
-}
+const UserInfo = ({ user, loggedUser, deleteBlog }) => (
+  <div className="userInfo">
+    {user.name}
+    <br />
+    {user.id !== loggedUser.id
+      ? null
+      : <button onClick={deleteBlog}>remove</button>
+    }
+  </div>
+)
 
 const Likes = ({ likes, addLike }) => (
   <div className="likes">
@@ -39,6 +37,7 @@ const Blog = ({ blog, loggedUser, likeBlog, deleteBlog }) => {
     setShowAll(!showAll)
   }
 
+  console.log(blog.user)
   const user = typeof blog.user !== String
     ? blog.user : null
 

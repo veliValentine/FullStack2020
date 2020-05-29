@@ -18,12 +18,13 @@ const LoginForm = ({ loginUser, message, error }) => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} className="login-form">
       <h2>log in to application</h2>
       <Notifications message={message} error={error} />
       <div>
         username
         <input
+          id="username"
           type="text"
           value={username}
           name="Username"
@@ -33,13 +34,14 @@ const LoginForm = ({ loginUser, message, error }) => {
       <div>
         password
         <input
+          id="current-password"
           type="password"
           value={password}
           name="password"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">login</button>
+      <button type="submit" id="login-button">login</button>
     </form>
   )
 }
