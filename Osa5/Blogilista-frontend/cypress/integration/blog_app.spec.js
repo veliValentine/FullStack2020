@@ -49,7 +49,7 @@ describe('Blog ', function () {
       cy.login({ username: 'test-username', password: 'test' })
     })
 
-    it.only('a blog can be created', function () {
+    it('a blog can be created', function () {
       cy.contains('new blog').click()
 
       cy.get('#title').type('test-title')
@@ -68,6 +68,45 @@ describe('Blog ', function () {
         .should('contain', 'a new blog test-title by test-author')
         .and('have.css', 'color', 'rgb(0, 128, 0)')
         .and('have.css', 'border-style', 'solid')
+    })
+
+    describe('When there is a blog', function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'test-title',
+          author: 'test-author',
+          url: 'test-url'
+        })
+      })
+
+      it.only('blog can show hidden information', function () {
+        cy.get('.hiddenBlog')
+          .should('contain', 'view')
+          .and('contain', 'test-title')
+          .and('contain', 'test-author')
+
+        cy.contains('view').click()
+
+        cy.get('.blogInfo')
+          .should('contain', 'hide')
+          .and('contain', 'test-title')
+          .and('contain', 'test-author')
+          .and('contain', 'likes 0')
+          .and('contain', 'test-name')
+      })
+
+      it('can be liked', function () {
+        cy.contains('view').click()
+        cy.contains('likes 0')
+
+        cy.contains('like').click()
+        cy.contains('likes 1')
+
+        cy.get('.success')
+          .should('contain', 'liked test-title by test-author')
+          .and('have.css', 'color', 'rgb(0, 128, 0)')
+          .and('have.css', 'border-style', 'solid')
+      })
     })
   })
 })

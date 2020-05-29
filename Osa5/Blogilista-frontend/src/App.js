@@ -70,7 +70,7 @@ const App = () => {
       await blogService.update(id, likedBlog)
       setBlogs(blogs.map(b => b.id !== id ? b : likedBlog))
       setError(false)
-      setMessage(`Liked ${likedBlog.title} by ${likedBlog.author}`)
+      setMessage(`liked ${likedBlog.title} by ${likedBlog.author}`)
       setTimeout(() => {
         setMessage(null)
       }, 2000)
