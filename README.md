@@ -13,7 +13,7 @@
 <h2>osa4</h2>
   Tehty 4.1-4.22
 <h2>osa5</h2>
-  Tehty 5.1-5.16
+  Tehty 5.1-5.19
 <h2>osa6</h2>
 <h2>osa7</h2>
 <h2>osa8</h2>
