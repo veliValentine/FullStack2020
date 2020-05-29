@@ -43,4 +43,31 @@ describe('Blog ', function () {
         .and('have.css', 'border-style', 'solid')
     })
   })
+
+  describe('When logged in', function () {
+    beforeEach(function () {
+      cy.login({ username: 'test-username', password: 'test' })
+    })
+
+    it.only('a blog can be created', function () {
+      cy.contains('new blog').click()
+
+      cy.get('#title').type('test-title')
+      cy.get('#author').type('test-author')
+      cy.get('#url').type('test-url')
+      cy.get('#blog-button').click()
+
+      cy.contains('new blog')
+
+      cy.get('.hiddenBlog')
+        .should('contain', 'view')
+        .and('contain', 'test-title')
+        .and('contain', 'test-author')
+
+      cy.get('.success')
+        .should('contain', 'a new blog test-title by test-author')
+        .and('have.css', 'color', 'rgb(0, 128, 0)')
+        .and('have.css', 'border-style', 'solid')
+    })
+  })
 })
