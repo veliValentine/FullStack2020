@@ -7,7 +7,7 @@ const UserInfo = ({ user, loggedUser, deleteBlog }) => (
     <br />
     {user.id !== loggedUser.id
       ? null
-      : <button onClick={deleteBlog}>remove</button>
+      : <button onClick={deleteBlog} id="remove-button">remove</button>
     }
   </div>
 )
@@ -45,11 +45,11 @@ const Blog = ({ blog, loggedUser, likeBlog, deleteBlog }) => {
     <div style={blogStyle}>
       <div style={hideWhenVisible} className="hiddenBlog">
         {blog.title} {blog.author}
-        <button onClick={toggleVisibility}>view</button>
+        <button onClick={toggleVisibility} id="view-button">view</button>
       </div>
       <div style={showWhenVisible} className="blogInfo">
         {blog.title} {blog.author}
-        <button onClick={toggleVisibility}>hide</button>
+        <button onClick={toggleVisibility} id="hide-button">hide</button>
         <br />
         <a href={blog.url}>{blog.url}</a>
         <Likes likes={blog.likes} addLike={likeBlog} />

@@ -79,11 +79,12 @@ describe('Blog ', function () {
         })
       })
 
-      it.only('blog can show hidden information', function () {
+      it('blog can show/hide information', function () {
         cy.get('.hiddenBlog')
           .should('contain', 'view')
           .and('contain', 'test-title')
           .and('contain', 'test-author')
+        cy.get('.blofInfo').should('not.be.visible')
 
         cy.contains('view').click()
 
@@ -93,6 +94,7 @@ describe('Blog ', function () {
           .and('contain', 'test-author')
           .and('contain', 'likes 0')
           .and('contain', 'test-name')
+        cy.get('hiddenBlog').should('not.be.visible')
       })
 
       it('can be liked', function () {
@@ -106,6 +108,27 @@ describe('Blog ', function () {
           .should('contain', 'liked test-title by test-author')
           .and('have.css', 'color', 'rgb(0, 128, 0)')
           .and('have.css', 'border-style', 'solid')
+      })
+
+      it('a blog can be deleted by right user', function () {
+        cy.contains('view').click()
+        cy.get('#remove-button').click().should('not.exist')
+        cy.get('.hiddenBlog').should('not.have.class')
+      })
+
+      it('a blog can not be removed by wrong user', function () {
+        cy.contains('logout').click()
+        const user = {
+          name: 'test-name2',
+          username: 'test-username2',
+          password: 'test2'
+        }
+        cy.request('POST', 'http://localhost:3001/api/users/', user)
+        cy.login({ username: user.username, password: user.password })
+        cy.contains('test-name2 logged in')
+
+        cy.get('#view-button').click()
+        cy.get('#remove-button').should('not.exist')
       })
     })
   })
