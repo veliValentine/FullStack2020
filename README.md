@@ -15,7 +15,7 @@
 <h2>osa5</h2>
   Tehty 5.1-5.22
 <h2>osa6</h2>
-  Tehty 6.1-6.11
+  Tehty 6.1-6.12
 <h2>osa7</h2>
 <h2>osa8</h2>
 <h2>osa9</h2>
