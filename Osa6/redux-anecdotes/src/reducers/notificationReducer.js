@@ -10,13 +10,15 @@ const reducer = (state = null, action) => {
   }
 }
 
+let id
 export const setNotification = (message, time) => {
   return async dispatch => {
+    clearTimeout(id)
     await dispatch({
       type: 'MESSAGE',
       data: { message }
     })
-    setTimeout(() => {
+    id = setTimeout(() => {
       dispatch({
         type: 'CLEAR'
       })
