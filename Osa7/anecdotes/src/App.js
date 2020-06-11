@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useField } from './hooks'
 import {
   Switch,
   Route,
@@ -65,21 +66,20 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
   const history = useHistory()
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
-    props.notify(`a new anecdote ${content} created!`)
+    props.notify(`a new anecdote ${content.value} created!`)
     history.push('/')
   }
 
@@ -89,15 +89,15 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input name="content" {...content} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input name='author' {...author} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <input name='info' {...info} />
         </div>
         <button>create</button>
       </form>
@@ -158,13 +158,13 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      <Menu notification={notification}/>
+      <Menu notification={notification} />
       <Switch>
         <Route path="/anecdotes/:id">
           <Anecdote anecdote={anecdote} />
         </Route>
         <Route path="/create_new">
-          <CreateNew addNew={addNew} notify={notify}/>
+          <CreateNew addNew={addNew} notify={notify} />
         </Route>
         <Route path="/about">
           <About />
