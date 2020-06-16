@@ -1,32 +1,11 @@
 {
   "blogs": [
     {
-      "id": "1",
-      "title": "title",
-      "author": "author",
-      "url": "url",
-      "likes": 2
-    },
-    {
-      "title": "1",
-      "author": "2",
-      "url": "3",
-      "likes": 4,
-      "id": 2
-    },
-    {
       "title": "Voita matopelissä",
       "author": "Ville",
       "url": "www.voita.fi",
-      "likes": 3,
+      "likes": 4,
       "id": 3
-    },
-    {
-      "title": "1",
-      "author": "1",
-      "url": "1",
-      "likes": 0,
-      "id": 4
     }
   ]
 }

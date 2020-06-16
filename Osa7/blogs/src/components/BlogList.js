@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { like } from '../reducers/blogReducer'
+import { like, remove } from '../reducers/blogReducer'
 import { notify } from '../reducers/notificationReducer.js'
 
-const Blog = ({ blog, handleClick }) => {
+const Blog = ({ blog, handleLike, handleRemove }) => {
   const style = {
     border: 'solid',
     padding: 10,
@@ -19,8 +19,9 @@ const Blog = ({ blog, handleClick }) => {
       </div>
       <div>
         likes {blog.likes}
-        <button onClick={handleClick}>like</button>
+        <button onClick={handleLike}>like</button>
       </div>
+      <button onClick={handleRemove}>remove</button>
     </div>
   )
 }
@@ -33,9 +34,13 @@ const BlogList = () => {
       {blogs.map(blog =>
         <Blog key={blog.id}
           blog={blog}
-          handleClick={() => {
+          handleLike={() => {
             dispatch(like(blog))
             dispatch(notify(`liked ${blog.title} by ${blog.author}`, 3))
+          }}
+          handleRemove={() => {
+            dispatch(remove(blog.id))
+            dispatch(notify(`removed blog ${blog.title} by ${blog.author}`, 3))
           }}
         />
       )}

@@ -13,6 +13,9 @@ const reducer = (state = [], action) => {
     case 'LIKE':
       const liked = action.data
       return state.map(b => b.id === liked.id ? liked : b).sort(byLikes)
+    case 'REMOVE':
+      const id = action.data
+      return state.filter(b => b.id !== id).sort(byLikes)
     default:
       return state
   }
@@ -36,6 +39,16 @@ export const like = (blogObj) => {
     dispatch({
       type: 'LIKE',
       data
+    })
+  }
+}
+
+export const remove = (id) => {
+  return async dispatch => {
+    const removedId = await blogService.remove(id)
+    dispatch({
+      type: 'REMOVE',
+      data: removedId
     })
   }
 }
