@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import BlogList from './components/BlogList'
+import Notification from './components/Notification'
+import { useDispatch, useSelector } from 'react-redux'
+import { init } from './reducers/blogReducer'
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch()
+  const s = useSelector(s => s)
+  console.log({ s })
+  useEffect(() => {
+    dispatch(init())
+  }, [dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>blogs</h2>
+      <Notification />
+      <BlogList />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
