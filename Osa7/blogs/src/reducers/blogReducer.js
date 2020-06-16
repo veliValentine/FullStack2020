@@ -41,16 +41,19 @@ export const like = (blogObj) => {
 }
 
 export const create = (blogObj) => {
-  id = id + 1
-  return {
-    type: 'NEW_NOTE',
-    data: {
+  return async dispatch => {
+    id = id + 1
+    const blog = await blogService.create({
       title: blogObj.title,
       author: blogObj.author,
       url: blogObj.url,
       likes: 0,
       id
-    }
+    })
+    dispatch({
+      type: 'NEW_BLOG',
+      data: blog
+    })
   }
 }
 

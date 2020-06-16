@@ -4,8 +4,13 @@ import { like } from '../reducers/blogReducer'
 import { notify } from '../reducers/notificationReducer.js'
 
 const Blog = ({ blog, handleClick }) => {
+  const style = {
+    border: 'solid',
+    padding: 10,
+    borderWidth: 1
+  }
   return (
-    <div>
+    <div style={style}>
       <div>
         {blog.title} by {blog.author}
       </div>
@@ -16,7 +21,6 @@ const Blog = ({ blog, handleClick }) => {
         likes {blog.likes}
         <button onClick={handleClick}>like</button>
       </div>
-      ---
     </div>
   )
 }
