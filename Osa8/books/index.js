@@ -138,7 +138,12 @@ const JWT_KEY = process.env.KEY
 
 const resolvers = {
   Query: {
-    allBooks: () => Book.find({}),//Ei löydä authoria
+    allBooks: (root, { genre }) => {
+      if(!genre){
+        return Book.find({})
+      }
+      return Book.find({ genres: {$in: genre} })
+    },
     bookCount: () => Book.collection.countDocuments(),
     allAuthors: () => Author.find({}),
     authorCount: () => Author.collection.countDocuments(),
