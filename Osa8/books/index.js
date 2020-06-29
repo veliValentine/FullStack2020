@@ -1,14 +1,15 @@
 require('dotenv').config()
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql, UserInputError } = require('apollo-server')
 const { v4: uuid } = require('uuid')
 const mongoose = require('mongoose')
 const Book = require('./models/book')
 const Author = require('./models/author')
+const jwt = require('jsonwebtoken')
 
 const MONGODB_URI = process.env.MONGODB_URI
 console.log('connecting to', MONGODB_URI)
 
-mongoose.connect(MONGODB_URI, {useNewUrlParser:true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     console.log('connected to MongoDB')
   })
@@ -41,7 +42,7 @@ let authors = [
     id: "afa5b6f3-344d-11e9-a414-719c6709cf3e",
   },
 ]
-
+//Author.insertMany(authors)
 /*
  * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tallettamalla kirjan yhteyteen tekijän nimen sijaan tekijän id
  * Yksinkertaisuuden vuoksi tallennamme kuitenkin kirjan yhteyteen tekijän nimen
@@ -133,38 +134,53 @@ const typeDefs = gql`
   }
 `
 
+const JWT_KEY = process.env.KEY
+
 const resolvers = {
   Query: {
-    allBooks: (root, { author, genre }) => {
-      return Book.find({})
-    },
+    allBooks: () => Book.find({}),//Ei löydä authoria
     bookCount: () => Book.collection.countDocuments(),
     allAuthors: () => Author.find({}),
     authorCount: () => Author.collection.countDocuments(),
   },
   Author: {
-    bookCount: ({ name }) => books.filter(a => a.author === name).length
+    bookCount: async ({ name }) => {
+      const author = await Author.findOne({ name })
+      const books = await Book.find({ author })
+      return books.length
+    }
   },
   Mutation: {
-    addBook: (root, args) => {
-      const book = { ...args, id: uuid() }
-      books = books.concat(book)
-      if (!authors.map(a => a.name).includes(book.author)) {
-        authors = authors.concat({
-          name: book.author,
-          id: uuid()
+    addBook: async (root, { author, ...args }) => {
+      let bookAuthor = await Author.findOne({ name: author })
+      if (!bookAuthor) {
+        bookAuthor = new Author({
+          name: author,
         })
+        bookAuthor.save()
       }
-      return book
+      const book = new Book({ ...args, author: bookAuthor })
+      return book.save()
+        .catch(error => {
+          throw new UserInputError(error.message, {
+            invalidArgs: args,
+          })
+        })
     },
-    editAuthor: (root, { name, setBornTo }) => {
-      const author = authors.find(a => a.name === name)
+    editAuthor: async (root, { name, setBornTo }) => {
+      const author = await Author.findOne({ name })
       if (!author) {
         return null
       }
-      const modifiedAuthor = { ...author, born: setBornTo }
-      authors = authors.map(a => a.id === modifiedAuthor.id ? modifiedAuthor : a)
-      return modifiedAuthor
+      author.born = setBornTo
+      try {
+        await author.save()
+      } catch (e) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+      return author
     },
   }
 }
