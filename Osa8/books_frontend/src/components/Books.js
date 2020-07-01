@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ALL_BOOKS } from '../queries'
 import { useQuery } from '@apollo/client'
 
 const Books = (props) => {
   const [filter, setFilter] = useState('all genres')
+  const [genres, setGenres] = useState([])
 
-  const result = useQuery(ALL_BOOKS)
+  const result = useQuery(ALL_BOOKS, {
+    variables: { genre: filter === 'all genres' ? '' : filter }
+  })
+
+  useEffect(() => {
+    if (result.data && filter === 'all genres') {
+      let g = []
+      result.data.allBooks.forEach(b => g = g.concat(b.genres))
+      g = [...new Set(g)].concat('all genres')
+      setGenres(g)
+    }
+  }, [result.data, filter])
 
   if (!props.show) {
     return null
@@ -18,19 +30,12 @@ const Books = (props) => {
 
   const books = result.data.allBooks
 
-  let genres = []
-  books.forEach(b => genres = genres.concat(b.genres))
-  genres = [...new Set(genres)].concat('all genres')
-
-
   return (
     <div>
       <h2>books</h2>
       {filter === 'all genres' ?
-        <></> :
-        <>
-          <p>in genre <b>{filter}</b></p>
-        </>
+        null :
+        <p>in genre <b>{filter}</b></p>
       }
       <table>
         <tbody>
