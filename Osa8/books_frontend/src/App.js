@@ -3,6 +3,7 @@ import { useApolloClient } from '@apollo/client'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
+import Recommend from './components/Recommend'
 import LoginForm from './components/LoginForm'
 
 const App = () => {
@@ -11,10 +12,10 @@ const App = () => {
   const client = useApolloClient()
 
   const logout = () => {
+    setPage('authors')
     setToken(null)
     localStorage.clear()
     client.resetStore()
-    setPage('authors')
   }
 
   return (
@@ -30,6 +31,7 @@ const App = () => {
           :
           <>
             <button onClick={() => setPage('add')}>add book</button>
+            <button onClick={() => setPage('recommend')}>recommend</button>
             <button onClick={logout}>logout</button>
           </>
         }
@@ -46,6 +48,11 @@ const App = () => {
 
       <NewBook
         show={page === 'add'}
+      />
+
+      <Recommend 
+        show={page === 'recommend'}
+        token={token}
       />
 
       <LoginForm
