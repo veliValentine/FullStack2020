@@ -6,7 +6,7 @@ import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 
 const App = () => {
-  const [page, setPage] = useState('authors')
+  const [page, setPage] = useState('books')
   const [token, setToken] = useState(null)
   const client = useApolloClient()
 
@@ -37,6 +37,7 @@ const App = () => {
 
       <Authors
         show={page === 'authors'}
+        token={token}
       />
 
       <Books
