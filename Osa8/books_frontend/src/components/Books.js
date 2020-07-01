@@ -8,7 +8,7 @@ const Books = (props) => {
 
   const result = useQuery(ALL_BOOKS, {
     variables: { genre: filter === 'all genres' ? '' : filter }
-  })
+  })//8.21 rajoitetaan suoraan 8.5 genren avulla
 
   useEffect(() => {
     if (result.data && filter === 'all genres') {
