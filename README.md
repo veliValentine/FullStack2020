@@ -19,7 +19,7 @@
 <h2>osa7</h2>
   Tehty 7.1-7.11
 <h2>osa8</h2>
-Tehty 8.1-8.22
+Tehty 8.1-8.23
 <h2>osa9</h2>
 <hr />
 <table>
