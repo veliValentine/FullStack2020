@@ -180,7 +180,7 @@ const resolvers = {
     }
   }
 }
-
+//8.15 mutaatioiden validointivirheet käsitellään
 const server = new ApolloServer({
   typeDefs,
   resolvers,
