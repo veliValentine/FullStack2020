@@ -4,20 +4,24 @@ import { useQuery } from '@apollo/client'
 
 const Books = (props) => {
   const [filter, setFilter] = useState('all genres')
-  const [genres, setGenres] = useState([])
+  const [genres, setGenres] = useState(['all genres'])//sisältää kaikkien kirjojen genret kyselyn kirjoista riippumatta
 
   const result = useQuery(ALL_BOOKS, {
     variables: { genre: filter === 'all genres' ? '' : filter }
   })//8.21 rajoitetaan suoraan 8.5 genren avulla
 
   useEffect(() => {
-    if (result.data && filter === 'all genres') {
-      let g = []
+    result.refetch()
+  }, [filter]) // eslint-disable-line
+
+  useEffect(() => {//hakee genret
+    if (result.data) {
+      let g = genres
       result.data.allBooks.forEach(b => g = g.concat(b.genres))
-      g = [...new Set(g)].concat('all genres')
+      g = [...new Set(g)]
       setGenres(g)
     }
-  }, [result.data, filter])
+  }, [result.data, filter]) // eslint-disable-line
 
   if (!props.show) {
     return null
@@ -27,7 +31,7 @@ const Books = (props) => {
     return (
       <div>loading...</div>)
   }
-
+  //console.log(result.data)
   const books = result.data.allBooks
 
   return (
