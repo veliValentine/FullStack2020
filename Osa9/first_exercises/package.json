@@ -1,0 +1,16 @@
+{
+  "name": "first_exercises",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ts-node":"ts-node"
+  },
+  "author": "veliValentine",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  }
+}
