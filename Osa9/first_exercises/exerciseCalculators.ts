@@ -1,4 +1,3 @@
-
 interface Values {
   periodLength: number,
   trainingDays: number,
@@ -7,6 +6,25 @@ interface Values {
   ratingDescription: string,
   target: number,
   average: number,
+}
+
+interface ExerciseData {
+  target: number;
+  days: Array<number>
+}
+const parseArgsValues = (args: Array<string>): ExerciseData => {
+  if (args.length < 4) throw new Error('Not enough arguments');
+  const [target, ...data] = args.slice(2);
+  const days = data.map(d => {
+    if (isNaN(Number(d))) throw new Error('training data is not a number!');
+    return Number(d)
+  })
+  if (isNaN(Number(target))) throw new Error('Target is not a number!');
+
+  return {
+    target: Number(target),
+    days
+  };
 }
 
 const f = (a: number, t: number): Array<any> => {
@@ -39,18 +57,10 @@ const calculateExercises = (daily: Array<number>, target: number): Values => {
     average,
   }
 }
+
 try {
-  console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
-} catch (e) {
-  console.log('error message: ', e.message);
-}
-try {
-  console.log(calculateExercises([3], 2));
-} catch (e) {
-  console.log('error message: ', e.message);
-}
-try {
-  console.log(calculateExercises([], 2));
+  const { target, days } = parseArgsValues(process.argv)
+  console.log(calculateExercises(days, target));
 } catch (e) {
   console.log('error message: ', e.message);
 }
