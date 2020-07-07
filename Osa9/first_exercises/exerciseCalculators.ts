@@ -39,7 +39,7 @@ const calculateRatingDescription = (r: number): string => {
   return 'hmmm... ihan ok';
 };
 
-const calculateExercises = (daily: Array<number>, target: number): Values => {
+export const calculateExercises = (daily: Array<number>, target: number): Values => {
   const periodLength = daily.length;
   if (periodLength === 0) {
     throw new Error('No exercises');
@@ -62,13 +62,13 @@ const calculateExercises = (daily: Array<number>, target: number): Values => {
 };
 
 try {
-  const { target, days } = parseArgsValues(process.argv);
-  console.log(calculateExercises(days, target));
+  //const { target, days } = 
+  parseArgsValues(process.argv);
+  //console.log(calculateExercises(days, target));
 } catch (e) {
-  if (e instanceof Error) {
+  /*if (e instanceof Error) {
     console.log('error message: ', e.message);
   } else {
     throw e;
-  }
-
+  }*/
 }

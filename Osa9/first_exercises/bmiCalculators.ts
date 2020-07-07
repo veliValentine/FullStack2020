@@ -2,7 +2,7 @@ interface BmiData {
   height: number;
   weight: number;
 }
-export const parseArgsData = (args: Array<string>): BmiData => {
+const parseArgsData = (args: Array<string>): BmiData => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
@@ -30,7 +30,7 @@ export const calculateBmi = (height: number, weight: number): string => {
     return 'Obese (unhealty weight)';
   }
 };
-
+/*
 try {
   const { height, weight } = parseArgsData(process.argv);
   const result = calculateBmi(height, weight);
@@ -42,4 +42,10 @@ try {
     throw e;
   }
 }
+*/
 //console.log(calculateBmi(180, 74)) //Normal (healthy weight)
+try {
+  parseArgsData(process.argv);
+} catch (e) {
+//
+}
