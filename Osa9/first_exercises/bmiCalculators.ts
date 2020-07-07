@@ -2,7 +2,7 @@ interface BmiData {
   height: number;
   weight: number;
 }
-export const parseArgsData = (args: Array<String>): BmiData => {
+export const parseArgsData = (args: Array<string>): BmiData => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
@@ -16,7 +16,7 @@ export const parseArgsData = (args: Array<String>): BmiData => {
   } else {
     throw new Error('Provided values were not numbers');
   }
-}
+};
 
 export const calculateBmi = (height: number, weight: number): string => {
   const bmi = weight / Math.pow(height / 100, 2);
@@ -29,13 +29,17 @@ export const calculateBmi = (height: number, weight: number): string => {
   } else {
     return 'Obese (unhealty weight)';
   }
-}
+};
 
 try {
   const { height, weight } = parseArgsData(process.argv);
   const result = calculateBmi(height, weight);
   console.log(result);
 } catch (e) {
-  console.error('Error, something went wrong, message: ', e.message);
+  if (e instanceof Error) {
+    console.error('Error, something went wrong, message: ', e.message);
+  } else {
+    throw e;
+  }
 }
 //console.log(calculateBmi(180, 74)) //Normal (healthy weight)
