@@ -2,9 +2,10 @@ POST http://localhost:3001/api/patients
 Content-Type: application/json
 
 {
-  "name":5,
+  "name":"hi",
   "dateOfBirth":"2000-06-14",
-  "gender":"something",
+  "gender":"other",
   "occupation":"jobless",
-  "ssn":"ssn"
+  "ssn":"ssn",
+  "random":"random"
 }

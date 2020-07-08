@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NewPatient } from './types';
+
+import { NewPatient, Gender } from './types';
 
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -26,15 +25,25 @@ const parseDate = (date: any): string => {
   return date;
 };
 
-const toNewPatient = (object: any): NewPatient => {
-  const newPatient: NewPatient = {
+const isGendre = (param: any): param is Gender => {
+  return Object.values(Gender).includes(param);
+};
+
+const parseGender = (gender: any): Gender => {
+  if (!gender || !isGendre(gender)) {
+    throw new Error(`Incorrect ot missing gender: ${gender}`);
+  }
+  return gender;
+};
+
+const toNewPatient = (object: NewPatient): NewPatient => {
+  return {
     name: parseString(object.name, 'name'),
-    ssn: parseString(object.ssn, 'snn'),
+    ssn: parseString(object.ssn, 'ssn'),
     dateOfBirth: parseDate(object.dateOfBirth),
-    gender: parseString(object.gender, 'genre'),
+    gender: parseGender(object.gender),
     occupation: parseString(object.occupation, 'occupation'),
   };
-  return newPatient;
 };
 
 export default toNewPatient;

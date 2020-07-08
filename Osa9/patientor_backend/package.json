@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "start": "node build/index.js",
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev --respawn --transpileOnly src/index.ts",
     "lint": "eslint --ext .ts .",
     "start:frontend": "cd ../patientor && npm start"
   },

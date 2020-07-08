@@ -14,6 +14,8 @@ const getPatients = (): Patient[] => {
 
 const newPatient = (obj: NewPatient):Patient => {
   const {ssn, ...data} = obj;
+  
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const id = uuid() as string;
   
   const newPatient = {
