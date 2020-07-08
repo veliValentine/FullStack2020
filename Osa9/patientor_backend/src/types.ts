@@ -3,3 +3,14 @@ export interface Diagnose {
   name: string;
   latin?: string;
 }
+
+export interface PatientFull {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  ssn: string;
+  gender: string;
+  occupation: string;
+}
+
+export type Patient = Omit<PatientFull, 'ssn'>;
