@@ -6,8 +6,9 @@
   "scripts": {
     "tsc": "tsc",
     "start": "node build/index.js",
-    "dev": "ts-node-dev index.ts",
-    "lint": "eslint --ext .ts ."
+    "dev": "ts-node-dev src/index.ts",
+    "lint": "eslint --ext .ts .",
+    "start:frontend": "cd ../patientor && npm start"
   },
   "author": "veliValentine",
   "license": "ISC",
