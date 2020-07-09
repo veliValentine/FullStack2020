@@ -21,7 +21,7 @@ const App: React.FC = () => {
     }
   ];
 
-  const totalExerciseCount = () => courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)
+  const totalExerciseCount = () => courseParts.reduce((carry, part) => carry + part.exerciseCount, 0);
 
   return (
     <div>

@@ -17,7 +17,7 @@ const Course: React.FC<CourseProps> = ({ course }) => (
   <p>
     {course.name} {course.exerciseCount}
   </p>
-)
+);
 
 const Content: React.FC<ContentProps> = ({ courses }) => (
   <div>
