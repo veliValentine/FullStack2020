@@ -13,21 +13,27 @@ interface CoursePartBaseDescription extends CoursePartBase {
   description: string;
 }
 
-export interface CoursePartOne extends CoursePartBaseDescription {
+interface CoursePartOne extends CoursePartBaseDescription {
   name: "Fundamentals";
 }
 
-export interface CoursePartTwo extends CoursePartBase {
+interface CoursePartTwo extends CoursePartBase {
   name: "Using props to pass data";
   groupProjectCount: number;
 }
 
-export interface CoursePartThree extends CoursePartBaseDescription {
+interface CoursePartThree extends CoursePartBaseDescription {
   name: "Deeper type usage";
   exerciseSubmissionLink: string;
 }
 
-export type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree;
+interface CoursePartFour extends CoursePartBaseDescription {
+  name: "Learn to fly";
+  licenseType: string;
+  minflightHours: number;
+}
+
+export type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree | CoursePartFour;
 
 const courseParts: CoursePart[] = [
   {
@@ -45,6 +51,13 @@ const courseParts: CoursePart[] = [
     exerciseCount: 14,
     description: "Confusing description",
     exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev"
+  },
+  {
+    name: "Learn to fly",
+    exerciseCount: 14,
+    description: "Learn to fly by your self",
+    licenseType: "ATPL(A)",
+    minflightHours: 1500
   }
 ];
 
@@ -56,7 +69,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Header header={courseName} />
-      <Content courses={courseParts}/>
+      <Content courses={courseParts} />
       <Total total={totalExerciseCount()} />
     </div>
   );

@@ -30,8 +30,18 @@ const Part = ({ course }: { course: CoursePart }) => {
         {course.exerciseCount} exercises
         <br />
         {course.description}
-        <br/>
+        <br />
         submission: <a href={course.exerciseSubmissionLink}>{course.exerciseSubmissionLink}</a>
+        <hr />
+      </div>;
+    case 'Learn to fly':
+      return <div>
+        <h4>{course.name}</h4>
+        {course.exerciseCount} exercises
+        <br />
+        {course.description}
+        <br />
+        {course.licenseType} min.hours:{course.minflightHours}
         <hr />
       </div>;
     default:
