@@ -13,21 +13,21 @@ interface CoursePartBaseDescription extends CoursePartBase {
   description: string;
 }
 
-interface CoursePartOne extends CoursePartBaseDescription {
+export interface CoursePartOne extends CoursePartBaseDescription {
   name: "Fundamentals";
 }
 
-interface CoursePartTwo extends CoursePartBase {
+export interface CoursePartTwo extends CoursePartBase {
   name: "Using props to pass data";
   groupProjectCount: number;
 }
 
-interface CoursePartThree extends CoursePartBaseDescription {
+export interface CoursePartThree extends CoursePartBaseDescription {
   name: "Deeper type usage";
   exerciseSubmissionLink: string;
 }
 
-type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree;
+export type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree;
 
 const courseParts: CoursePart[] = [
   {
@@ -56,7 +56,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Header header={courseName} />
-      <Content courses={courseParts} />
+      <Content courses={courseParts}/>
       <Total total={totalExerciseCount()} />
     </div>
   );
