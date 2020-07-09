@@ -22,8 +22,8 @@
   "rules": {
     "@typescript-eslint/explicit-function-return-type": 0,
     "react/prop-types": 0,
-    "no-trailing-spaces": 2,
-    "semi": 2,
-    "arrow-spacing":2
+    "no-trailing-spaces": 1,
+    "semi": 1,
+    "arrow-spacing":1
   }
 }
