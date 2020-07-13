@@ -1,5 +1,5 @@
 import patientsData from '../../data/patients';
-import { Patient, NewPatient } from '../types';
+import { Patient, NewPatient, PatientFull } from '../types';
 import { v4 as uuid } from 'uuid';
 
 const getPatients = (): Patient[] => {
@@ -8,25 +8,33 @@ const getPatients = (): Patient[] => {
     name,
     dateOfBirth,
     gender,
-    occupation,
+    occupation
   }));
 };
 
-const newPatient = (obj: NewPatient):Patient => {
-  const {ssn, ...data} = obj;
-  
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  const id = uuid() as string;
-  
+const newPatient = (obj: NewPatient): Patient => {
+  const { ssn, ...data } = obj;
+
+  const id = uuid();
+
   const newPatient = {
     ...data,
     id,
   };
-  patientsData.push({ssn, ...newPatient});
+  patientsData.push({ ssn, ...newPatient });
   return newPatient;
+};
+
+const getPatient = (id: string): PatientFull => {
+  const patient = patientsData.find(p => p.id === id);
+  if (!patient) {
+    throw new Error('Patient not found');
+  }
+  return patient;
 };
 
 export default {
   getPatients,
   newPatient,
+  getPatient,
 };

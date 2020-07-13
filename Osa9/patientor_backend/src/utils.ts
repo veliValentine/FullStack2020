@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -36,13 +38,15 @@ const parseGender = (gender: any): Gender => {
   return gender;
 };
 
-const toNewPatient = (object: NewPatient): NewPatient => {
+const toNewPatient = (object: any): NewPatient => {
   return {
     name: parseString(object.name, 'name'),
     ssn: parseString(object.ssn, 'ssn'),
     dateOfBirth: parseDate(object.dateOfBirth),
     gender: parseGender(object.gender),
     occupation: parseString(object.occupation, 'occupation'),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    entries: object.entries
   };
 };
 
