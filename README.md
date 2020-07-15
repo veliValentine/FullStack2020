@@ -21,7 +21,7 @@
 <h2>osa8</h2>
 Tehty 8.1-8.23
 <h2>osa9</h2>
-Tehty 9.1-9.20
+Tehty 9.1-9.22
 <p>
   <a href="https://github.com/veliValentine/patientor">
     Patientor front end
