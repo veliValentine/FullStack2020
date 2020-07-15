@@ -21,7 +21,6 @@ router.post('/', (req, res) => {
   }
 });
 
-
 router.get('/:id', (req, res) => {
   try {
     const patient = patientsService.getPatient(req.params.id);
