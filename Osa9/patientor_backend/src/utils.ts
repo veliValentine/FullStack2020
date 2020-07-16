@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { NewPatient, Gender } from './types';
+import { NewPatient, Gender, NewEntry, Diagnose, HealthCheckRating } from './types';
 
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -38,6 +39,83 @@ const parseGender = (gender: any): Gender => {
   return gender;
 };
 
+const isHealthCheckRating = (param: any): param is HealthCheckRating => {
+  return [0,1,2,3].includes(param);
+};
+
+const parseHealthCheckRating = (obj: any): HealthCheckRating => {
+  if (!obj || !isHealthCheckRating(Number(obj))) {
+    throw new Error(`Incorret or missing HealthCheckRating: ${obj}`);
+  }
+  return Number(obj);
+};
+
+const isDiagnose = (param: any): param is Diagnose => {
+  //Sisältää kaikki pakolliset arvot
+  if (!param || !param.name || !param.code) {
+    return false;
+  }
+  const params = Object.values(param);
+  //Tarkistetaan, että arvoja on oikea määrä ja ovat oikeaa muotoa
+  if (params.length < 2 || params.length > 3 || (params.some(p => !isString(p)))) {
+    return false;
+  }
+  //Tarkistetaan, ettei ylimääräinen sarake ole jotain muuta kuin vaihtoehtoinen latin sarake
+  if (params.length === 3 && !param.latin) {
+    return false;
+  }
+  return true;
+};
+/*
+const parseDiagnose = (diagnose: any): Diagnose => {
+  if (!diagnose || !isDiagnose(diagnose)) {
+    throw new Error(`Diagnose is missing: ${diagnose}`);
+  }
+  return diagnose;
+};
+*/
+const parseDiagnosisCodes = (diagnosisCodes: any): Array<Diagnose['code']> => {
+  if (!diagnosisCodes) {
+    throw new Error(`Missing diagnosisCodes: ${diagnosisCodes}`);
+  }
+  if (!(diagnosisCodes instanceof Array)) {
+    throw new Error(`DiagnosisCodes is not an array: ${diagnosisCodes}`);
+  }
+  if (diagnosisCodes.some(d => !isDiagnose(d))) {
+    throw new Error(`Array contains something else than diagnoses: ${diagnosisCodes}`);
+  }
+  const diagnosisArray = diagnosisCodes.map(d => parseString(d, 'parseDiagnosisCode'));
+  return diagnosisArray;
+};
+
+const parseDischarge = (discharge: any): { date: string, criteria: string } => {
+  if (!discharge || !discharge.date || !discharge.criteria) {
+    throw new Error(`Missing arguments, discharge: ${discharge}`);
+  }
+  const date = discharge.date;
+  const criteria = discharge.criteria;
+  if (!isDate(date) || !isString(criteria)) {
+    throw new Error(`Invalid discharge: ${discharge}`);
+  }
+
+  return { date, criteria };
+};
+
+const parseSickLeave = (leave: any): { startDate: string, endDate: string } => {
+  if (!leave || !leave.startDate || !leave.endDate) {
+    throw new Error(`Missing arguments: ${leave}`);
+  }
+  const startDate = leave.startDate;
+  const endDate = leave.endDate;
+
+  if (!isDate(startDate) || !isDate(endDate)) {
+    throw new Error(`Invalid arguments: ${leave}`);
+  }
+  return {
+    startDate, endDate
+  };
+};
+
 const toNewPatient = (object: any): NewPatient => {
   return {
     name: parseString(object.name, 'name'),
@@ -47,6 +125,35 @@ const toNewPatient = (object: any): NewPatient => {
     occupation: parseString(object.occupation, 'occupation'),
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     entries: object.entries
+  };
+};
+
+export const toNewEntry = (object: any): NewEntry => {
+  const baseInfo = {
+    description: parseString(object.description, 'description'),
+    date: parseDate(object.date),
+    specialist: parseString(object.specialist, 'specialist'),
+    diagnosisCodes: object.diagnosisCodes ? parseDiagnosisCodes(object.diagnosisCodes) : undefined
+  };
+  if (object.healthCheckRating) {
+    return {
+      ...baseInfo,
+      type: 'HealthCheck',
+      healthCheckRating: parseHealthCheckRating(object.healthCheckRating)
+    };
+  }
+  if (object.discharge) {
+    return {
+      ...baseInfo,
+      type: 'Hospital',
+      discharge: parseDischarge(object.discharge)
+    };
+  }
+  return {
+    ...baseInfo,
+    type: 'OccupationalHealthcare',
+    employerName: parseString(object.employerName, 'employerName'),
+    sickLeave: object.sickLeave ? parseSickLeave(object.sickLeave) : undefined
   };
 };
 

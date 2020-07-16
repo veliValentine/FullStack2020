@@ -1,5 +1,5 @@
 import patientsData from '../../data/patients';
-import { Patient, NewPatient, PatientFull } from '../types';
+import { Patient, NewPatient, PatientFull, NewEntry, Entry } from '../types';
 import { v4 as uuid } from 'uuid';
 
 const getPatients = (): Patient[] => {
@@ -33,8 +33,19 @@ const getPatient = (id: string): PatientFull => {
   return patient;
 };
 
+const newEntry = (id: string, entry: NewEntry): Entry => {
+  const patient = patientsData.find(p => p.id === id);
+  if (!patient) throw new Error('Patient not found');
+  if (!entry) throw new Error('entry not defined');
+  const addedEntry = { ...entry, id: uuid() };
+  patient.entries = patient.entries.concat(addedEntry);
+  //patientsData.map(p => p.id === id ? patient : p);//???
+  return addedEntry;
+};
+
 export default {
   getPatients,
   newPatient,
   getPatient,
+  newEntry,
 };

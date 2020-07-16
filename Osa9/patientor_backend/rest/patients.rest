@@ -9,3 +9,14 @@ Content-Type: application/json
   "ssn":"ssn",
   "random":"random"
 }
+
+### new entry
+POST http://localhost:3001/api/patients/d2773336-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "date":"2020-01-01",
+  "specialist":"Tein itse",
+  "description": "Varvas ommeltu takaisin kiinni",
+  "healthCheckRating": "0"
+}
