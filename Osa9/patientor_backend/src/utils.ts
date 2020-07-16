@@ -40,48 +40,31 @@ const parseGender = (gender: any): Gender => {
 };
 
 const isHealthCheckRating = (param: any): param is HealthCheckRating => {
-  return [0,1,2,3].includes(param);
+  return [0, 1, 2, 3].includes(param);
 };
 
 const parseHealthCheckRating = (obj: any): HealthCheckRating => {
-  if (!obj || !isHealthCheckRating(Number(obj))) {
-    throw new Error(`Incorret or missing HealthCheckRating: ${obj}`);
+  if (isNaN(obj)) {
+    throw new Error(`missing HealthCheckRating: ${obj}`);
+  }
+  if (!isHealthCheckRating(Number(obj))) {
+    throw new Error(`Incorret HealthCheckRating: ${obj}`);
   }
   return Number(obj);
 };
 
-const isDiagnose = (param: any): param is Diagnose => {
-  //Sisältää kaikki pakolliset arvot
-  if (!param || !param.name || !param.code) {
-    return false;
-  }
-  const params = Object.values(param);
-  //Tarkistetaan, että arvoja on oikea määrä ja ovat oikeaa muotoa
-  if (params.length < 2 || params.length > 3 || (params.some(p => !isString(p)))) {
-    return false;
-  }
-  //Tarkistetaan, ettei ylimääräinen sarake ole jotain muuta kuin vaihtoehtoinen latin sarake
-  if (params.length === 3 && !param.latin) {
-    return false;
-  }
-  return true;
-};
-/*
-const parseDiagnose = (diagnose: any): Diagnose => {
-  if (!diagnose || !isDiagnose(diagnose)) {
-    throw new Error(`Diagnose is missing: ${diagnose}`);
-  }
-  return diagnose;
-};
-*/
 const parseDiagnosisCodes = (diagnosisCodes: any): Array<Diagnose['code']> => {
   if (!diagnosisCodes) {
     throw new Error(`Missing diagnosisCodes: ${diagnosisCodes}`);
   }
+  if (isString(diagnosisCodes)) {
+    diagnosisCodes = diagnosisCodes.split(',');
+  }
+
   if (!(diagnosisCodes instanceof Array)) {
     throw new Error(`DiagnosisCodes is not an array: ${diagnosisCodes}`);
   }
-  if (diagnosisCodes.some(d => !isDiagnose(d))) {
+  if (diagnosisCodes.some(d => !isString(d))) {
     throw new Error(`Array contains something else than diagnoses: ${diagnosisCodes}`);
   }
   const diagnosisArray = diagnosisCodes.map(d => parseString(d, 'parseDiagnosisCode'));
@@ -135,7 +118,7 @@ export const toNewEntry = (object: any): NewEntry => {
     specialist: parseString(object.specialist, 'specialist'),
     diagnosisCodes: object.diagnosisCodes ? parseDiagnosisCodes(object.diagnosisCodes) : undefined
   };
-  if (object.healthCheckRating) {
+  if (object.healthCheckRating === 0 || object.healthCheckRating) {
     return {
       ...baseInfo,
       type: 'HealthCheck',

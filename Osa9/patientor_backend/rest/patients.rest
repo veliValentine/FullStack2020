@@ -18,5 +18,5 @@ Content-Type: application/json
   "date":"2020-01-01",
   "specialist":"Tein itse",
   "description": "Varvas ommeltu takaisin kiinni",
-  "healthCheckRating": "0"
+  "healthCheckRating": "moi"
 }
